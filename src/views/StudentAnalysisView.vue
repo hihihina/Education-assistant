@@ -155,14 +155,14 @@ function renderBarChart() {
           data: profile.value.subjectRows.map((row) => ({
             value: row.rate,
             itemStyle: {
-              color: row.levelClass === "good" ? "#2f7df4" : row.levelClass === "bad" ? "#e35d67" : "#8aa9d6",
+              color: row.levelClass === "good" ? "#0a2463" : row.levelClass === "bad" ? "#e35d67" : "#94a3b8",
               borderRadius: [0, 10, 10, 0],
             },
           })),
           markLine: {
             silent: true,
             symbol: "none",
-            lineStyle: { type: "dashed", color: "rgba(47,125,244,0.24)" },
+            lineStyle: { type: "dashed", color: "rgba(10, 36, 99, 0.24)" },
             data: [{ xAxis: 60 }, { xAxis: 85 }],
           },
         },
@@ -191,13 +191,13 @@ function renderRadarChart() {
             .join("<br/>")}`;
         },
       },
-      legend: { bottom: 0, textStyle: { color: "#627b99" } },
+      legend: { bottom: 0, textStyle: { color: "#6b7280" } },
       radar: {
         radius: "70%",
         splitNumber: 5,
-        axisName: { color: "#163457" },
+        axisName: { color: "#111827" },
         splitLine: { lineStyle: { color: ["rgba(88,123,177,0.12)"] } },
-        splitArea: { areaStyle: { color: ["rgba(255,255,255,0.18)", "rgba(47,125,244,0.04)"] } },
+        splitArea: { areaStyle: { color: ["rgba(255,255,255,0.18)", "rgba(10, 36, 99, 0.04)"] } },
         indicator: profile.value.subjectRows.map((row) => ({ name: row.subjectLabel, max: 100 })),
       },
       series: [
@@ -207,18 +207,18 @@ function renderRadarChart() {
             {
               value: profile.value.subjectRows.map((row) => row.rate),
               name: "当前学生",
-              areaStyle: { color: "rgba(47,125,244,0.18)" },
-              lineStyle: { color: "#2f7df4" },
-              itemStyle: { color: "#2f7df4" },
+              areaStyle: { color: "rgba(10, 36, 99, 0.18)" },
+              lineStyle: { color: "#0a2463" },
+              itemStyle: { color: "#0a2463" },
             },
             ...(showAverage.value
               ? [
                   {
                     value: profile.value.subjectRows.map((row) => row.averageRate),
                     name: "数据集平均",
-                    areaStyle: { color: "rgba(143,215,255,0.18)" },
-                    lineStyle: { color: "#6fb8ff" },
-                    itemStyle: { color: "#6fb8ff" },
+                    areaStyle: { color: "rgba(62, 146, 204, 0.16)" },
+                    lineStyle: { color: "#6366f1" },
+                    itemStyle: { color: "#6366f1" },
                   },
                 ]
               : []),
@@ -421,13 +421,13 @@ function goBack() {
 
 .immersive-back {
   border: 1px solid var(--line-strong);
-  background: rgba(255, 255, 255, 0.74);
+  background: var(--surface-90);
 }
 
 .immersive-export {
   border: 0;
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .immersive-select {
@@ -441,16 +441,16 @@ function goBack() {
   padding: 12px 14px;
   border-radius: 16px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--surface-92);
 }
 
 .immersive-hero {
   padding: 26px 28px;
   border: 1px solid var(--line);
-  border-radius: 32px;
+  border-radius: 24px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(234, 243, 255, 0.92)),
-    radial-gradient(circle at top left, rgba(143, 215, 255, 0.2), transparent 34%);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94)),
+    radial-gradient(circle at top left, rgba(62, 146, 204, 0.16), transparent 34%);
   box-shadow: var(--shadow-lg);
 }
 
@@ -464,7 +464,7 @@ function goBack() {
   color: var(--copper);
   text-transform: uppercase;
   letter-spacing: 0.24em;
-  font-size: 12px;
+  font-size: var(--font-size-meta);
 }
 
 .immersive-hero h2,
@@ -501,7 +501,7 @@ function goBack() {
 
 .student-panel {
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-md);
   overflow: hidden;
@@ -533,19 +533,33 @@ function goBack() {
 .student-table-wrap th,
 .student-table-wrap td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
 }
 
 .student-table-wrap th {
   position: sticky;
   top: 0;
-  background: rgba(244, 248, 255, 0.96);
+  background: var(--surface-96);
   cursor: pointer;
 }
 
+.immersive-hero,
+.student-panel,
+.student-table-wrap {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.immersive-hero {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 38%),
+    linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+}
+
 .row-focused {
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
 }
 
 .chart-host {
@@ -565,7 +579,7 @@ function goBack() {
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
 }
 
@@ -576,7 +590,7 @@ function goBack() {
 
 .level-pill--mid {
   color: var(--ink-soft);
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
 }
 
 .level-pill--bad {

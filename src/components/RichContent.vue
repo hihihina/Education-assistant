@@ -93,15 +93,15 @@ async function renderContent() {
 
 .rich-content :deep(blockquote) {
   padding: 10px 14px;
-  border-left: 3px solid rgba(47, 125, 244, 0.24);
-  background: rgba(47, 125, 244, 0.05);
+  border-left: 3px solid var(--primary-24);
+  background: var(--primary-05);
   border-radius: 0 12px 12px 0;
 }
 
 .rich-content :deep(code) {
   padding: 2px 6px;
   border-radius: 8px;
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--primary-08);
   font-size: 0.92em;
 }
 
@@ -109,7 +109,7 @@ async function renderContent() {
   overflow: auto;
   padding: 14px;
   border-radius: 14px;
-  background: rgba(22, 52, 87, 0.06);
+  background: var(--primary-06);
 }
 
 .rich-content :deep(pre code) {
@@ -129,19 +129,19 @@ async function renderContent() {
 .rich-content :deep(th),
 .rich-content :deep(td) {
   padding: 10px 12px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
   vertical-align: top;
 }
 
 .rich-content :deep(th) {
-  background: rgba(47, 125, 244, 0.06);
+  background: var(--primary-06);
 }
 
 .rich-content :deep(a) {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: rgba(47, 125, 244, 0.3);
+  text-decoration-color: var(--primary-30);
   text-underline-offset: 3px;
 }
 

@@ -67,7 +67,7 @@ async function renderPreview() {
   display: grid;
   place-items: center;
   color: var(--ink-soft);
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
   text-align: center;
 }
 

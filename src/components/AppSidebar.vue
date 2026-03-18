@@ -3,6 +3,15 @@ import { computed } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import { useEduScopeStore } from "../composables/useEduScopeStore";
 
+const props = defineProps({
+  collapsed: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(["toggle-collapse"]);
+
 const route = useRoute();
 const store = useEduScopeStore();
 
@@ -72,17 +81,32 @@ function isActive(item) {
 function isChildActive(child) {
   return route.path === child.to || route.path.startsWith(`${child.to}/`);
 }
+
+function toggleCollapse() {
+  emit("toggle-collapse", !props.collapsed);
+}
 </script>
 
 <template>
-  <aside class="app-sidebar">
+  <aside class="app-sidebar" :class="{ 'app-sidebar--collapsed': props.collapsed }">
     <div class="app-sidebar__brand">
-      <div class="brand-mark">ea</div>
-      <div>
-        <p class="brand-eyebrow">education assistant</p>
-        <h1>edua</h1>
-        <p class="brand-copy">成绩分析、智能助手、出题与出卷工作台。</p>
+      <div class="app-sidebar__brand-main">
+        <div class="brand-mark">ea</div>
+        <div class="brand-copy-wrap">
+          <p class="brand-eyebrow">education assistant</p>
+          <h1>edua</h1>
+          <p class="brand-copy">成绩分析、智能助手、出题与出卷工作台。</p>
+        </div>
       </div>
+      <button
+        class="sidebar-collapse-btn"
+        type="button"
+        :aria-label="props.collapsed ? '展开侧栏' : '收起侧栏'"
+        :title="props.collapsed ? '展开侧栏' : '收起侧栏'"
+        @click="toggleCollapse"
+      >
+        {{ props.collapsed ? ">" : "<" }}
+      </button>
     </div>
 
     <nav class="app-sidebar__nav" aria-label="站点导航">
@@ -94,6 +118,7 @@ function isChildActive(child) {
             :to="item.to"
             class="sidebar-link"
             :class="{ 'sidebar-link--active': isActive(item) }"
+            :title="props.collapsed ? item.label : ''"
           >
             <span class="sidebar-link__badge">{{ item.badge }}</span>
             <strong>{{ item.label }}</strong>
@@ -106,9 +131,10 @@ function isChildActive(child) {
               :to="child.to"
               class="sidebar-sub-link"
               :class="{ 'sidebar-sub-link--active': isChildActive(child) }"
+              :title="props.collapsed ? child.label : ''"
             >
               <span class="sidebar-sub-link__dot"></span>
-              <span>{{ child.label }}</span>
+              <span class="sidebar-sub-link__label">{{ child.label }}</span>
             </RouterLink>
           </div>
         </div>
@@ -141,40 +167,79 @@ function isChildActive(child) {
   top: clamp(12px, 1.4vw, 18px);
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
   min-height: calc(100vh - 36px);
-  padding: clamp(18px, 1.8vw, 24px);
+  padding: clamp(16px, 1.5vw, 22px);
   border: 1px solid var(--line);
-  border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 255, 0.92));
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--surface-98), var(--surface-muted-94));
   box-shadow: var(--shadow-md);
+  transition: padding 180ms ease, gap 180ms ease;
 }
 
 .app-sidebar__brand {
   display: flex;
-  gap: 14px;
+  justify-content: space-between;
   align-items: flex-start;
+  gap: 10px;
+}
+
+.app-sidebar__brand-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.brand-copy-wrap {
+  min-width: 0;
+}
+
+.sidebar-collapse-btn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--primary-22);
+  background: var(--accent-08);
+  color: var(--copper);
+  font-weight: 700;
+  line-height: 1;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.sidebar-collapse-btn:hover {
+  background: var(--accent-16);
+  border-color: var(--primary-28);
+  transform: translateY(-1px);
+}
+
+.sidebar-collapse-btn:active {
+  transform: translateY(0);
 }
 
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   background: linear-gradient(145deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
   font-weight: 800;
   font-size: 0.94rem;
   letter-spacing: 0.05em;
-  box-shadow: 0 18px 34px rgba(47, 125, 244, 0.22);
+  box-shadow: 0 10px 22px var(--primary-24);
 }
 
 .brand-eyebrow,
 .sidebar-group__label {
   margin: 0;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: var(--font-size-eyebrow);
+  font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--copper);
@@ -211,38 +276,38 @@ function isChildActive(child) {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
-  border-radius: 18px;
+  padding: 11px 14px;
+  border-radius: 10px;
   border: 1px solid transparent;
   transition: 180ms ease;
 }
 
 .sidebar-link:hover {
-  background: rgba(47, 125, 244, 0.05);
-  border-color: rgba(47, 125, 244, 0.08);
+  background: var(--accent-08);
+  border-color: var(--primary-18);
 }
 
 .sidebar-link--active {
-  background: linear-gradient(135deg, rgba(47, 125, 244, 0.12), rgba(135, 208, 255, 0.12));
-  border-color: rgba(47, 125, 244, 0.16);
+  background: linear-gradient(130deg, var(--primary-16), var(--accent-16));
+  border-color: var(--primary-28);
 }
 
 .sidebar-link__badge {
   flex: none;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  background: rgba(47, 125, 244, 0.08);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--primary-12);
   color: var(--copper);
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 800;
 }
 
 .sidebar-link--active .sidebar-link__badge {
   background: linear-gradient(145deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .sidebar-link strong {
@@ -261,17 +326,17 @@ function isChildActive(child) {
   gap: 10px;
   min-height: 34px;
   padding: 6px 10px;
-  border-radius: 12px;
+  border-radius: 8px;
   color: var(--ink-soft);
   transition: 180ms ease;
 }
 
 .sidebar-sub-link:hover {
-  background: rgba(47, 125, 244, 0.05);
+  background: var(--accent-08);
 }
 
 .sidebar-sub-link--active {
-  background: rgba(47, 125, 244, 0.1);
+  background: var(--primary-12);
   color: var(--ink);
 }
 
@@ -279,7 +344,11 @@ function isChildActive(child) {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: rgba(47, 125, 244, 0.32);
+  background: var(--primary-34);
+}
+
+.sidebar-sub-link__label {
+  min-width: 0;
 }
 
 .sidebar-sub-link--active .sidebar-sub-link__dot {
@@ -294,9 +363,9 @@ function isChildActive(child) {
 
 .sidebar-note {
   padding: 16px;
-  border-radius: 20px;
-  background: rgba(235, 243, 255, 0.8);
-  border: 1px solid rgba(47, 125, 244, 0.12);
+  border-radius: 10px;
+  background: var(--surface-96);
+  border: 1px solid var(--primary-14);
 }
 
 .sidebar-note strong {
@@ -310,15 +379,85 @@ function isChildActive(child) {
 
 .status-card {
   padding: 14px 16px;
-  border-radius: 18px;
+  border-radius: 10px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.86);
+  background: var(--surface-96);
 }
 
 .status-card strong {
   display: block;
   margin-top: 6px;
   font-size: 1rem;
+}
+
+.app-sidebar--collapsed {
+  align-items: center;
+  padding: 14px 10px;
+  gap: 14px;
+}
+
+.app-sidebar--collapsed .app-sidebar__brand {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.app-sidebar--collapsed .app-sidebar__brand-main {
+  justify-content: center;
+}
+
+.app-sidebar--collapsed .brand-mark {
+  width: 42px;
+  height: 42px;
+}
+
+.app-sidebar--collapsed .brand-copy-wrap,
+.app-sidebar--collapsed .sidebar-group__label,
+.app-sidebar--collapsed .sidebar-link strong,
+.app-sidebar--collapsed .sidebar-sub-link__label,
+.app-sidebar--collapsed .app-sidebar__status {
+  display: none;
+}
+
+.app-sidebar--collapsed .app-sidebar__nav,
+.app-sidebar--collapsed .sidebar-group,
+.app-sidebar--collapsed .sidebar-item {
+  width: 100%;
+}
+
+.app-sidebar--collapsed .sidebar-link {
+  justify-content: center;
+  padding: 9px 8px;
+  border-radius: 10px;
+}
+
+.app-sidebar--collapsed .sidebar-link__badge {
+  width: 36px;
+  height: 36px;
+}
+
+.app-sidebar--collapsed .sidebar-subnav {
+  display: none;
+}
+
+.app-sidebar--collapsed .sidebar-sub-link {
+  justify-content: center;
+  width: 36px;
+  min-height: 32px;
+  padding: 0;
+}
+
+.app-sidebar--collapsed .sidebar-sub-link__dot {
+  width: 10px;
+  height: 10px;
+}
+
+.app-sidebar--collapsed .sidebar-collapse-btn {
+  position: static;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
 }
 
 @media (max-width: 1100px) {

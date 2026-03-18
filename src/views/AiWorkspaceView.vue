@@ -162,7 +162,7 @@ function clearApiKey() {
 <style scoped>
 .ai-workspace {
   display: grid;
-  gap: 22px;
+  gap: 24px;
   align-content: start;
 }
 
@@ -175,17 +175,19 @@ function clearApiKey() {
 .page-intro {
   grid-template-columns: minmax(0, 1.45fr) auto;
   align-items: start;
-  padding: clamp(24px, 3vw, 34px);
+  padding: clamp(22px, 2.3vw, 32px);
   border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.98), rgba(235, 244, 255, 0.92));
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 36%),
+    linear-gradient(150deg, var(--surface-98), var(--surface-muted-94));
   box-shadow: var(--shadow-md);
 }
 
 .page-intro__eyebrow {
   margin: 0;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--font-size-meta);
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--copper);
@@ -193,8 +195,9 @@ function clearApiKey() {
 
 .page-intro h2 {
   margin: 12px 0 0;
-  font-size: clamp(2rem, 3vw, 3.2rem);
-  line-height: 1.12;
+  font-size: clamp(1.7rem, 2.1vw, 2.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .page-intro__lead,
@@ -215,7 +218,8 @@ function clearApiKey() {
 .page-intro__tip {
   padding: 10px 14px;
   border-radius: 14px;
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--primary-08);
+  border: 1px solid var(--primary-12);
   display: inline-flex;
 }
 
@@ -235,17 +239,18 @@ function clearApiKey() {
   padding: 12px 18px;
   border: 0;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
-  box-shadow: 0 18px 34px rgba(47, 125, 244, 0.22);
+  color: var(--paper-strong);
+  box-shadow: 0 14px 32px var(--primary-26);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--surface-92);
+  border: 1px solid var(--primary-12);
   color: var(--ink);
 }
 
@@ -279,7 +284,7 @@ function clearApiKey() {
   padding: 16px 18px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: rgba(248, 251, 255, 0.92);
+  background: var(--surface-96);
 }
 
 .setup-note strong,
@@ -299,19 +304,57 @@ function clearApiKey() {
   gap: 10px;
   padding: 18px;
   border: 1px solid var(--line);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--surface-98), var(--surface-muted-94));
   text-align: left;
 }
 
 .workspace-card:hover {
   transform: translateY(-1px);
-  border-color: rgba(47, 125, 244, 0.18);
+  border-color: var(--primary-24);
+}
+
+.page-intro,
+.setup-note,
+.setup-point,
+.usage-card,
+.workspace-card {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.page-intro {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 36%),
+    linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+}
+
+.workspace-card,
+.setup-note,
+.setup-point,
+.usage-card {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.workspace-card:hover,
+.setup-note:hover,
+.setup-point:hover,
+.usage-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
+}
+
+@media (max-width: 1366px) {
+  .ai-workspace__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(290px, 360px);
+  }
 }
 
 .workspace-card__tag,
 .workspace-card__action {
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;

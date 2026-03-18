@@ -100,8 +100,8 @@ const checklist = [
 .analysis-hub__copy {
   padding: clamp(26px, 3vw, 36px);
   border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(235, 244, 255, 0.9));
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(243, 244, 246, 0.9));
   box-shadow: var(--shadow-md);
 }
 
@@ -111,7 +111,7 @@ const checklist = [
   display: inline-flex;
   margin: 0;
   color: var(--copper);
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -144,7 +144,7 @@ const checklist = [
   padding: 16px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .session-card strong {
@@ -163,7 +163,7 @@ const checklist = [
   align-content: start;
   padding: 24px;
   border: 1px solid var(--line);
-  border-radius: 26px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-md);
   transition: 180ms ease;
@@ -182,6 +182,24 @@ const checklist = [
 .analysis-card small {
   margin: 0;
   line-height: 1.65;
+}
+
+.analysis-hub__copy,
+.session-card,
+.analysis-card {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.analysis-card:hover,
+.session-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 @media (max-width: 1100px) {

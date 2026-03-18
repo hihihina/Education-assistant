@@ -98,8 +98,8 @@ function handleDrop(event) {
   border: 1.5px dashed var(--line-strong);
   border-radius: 24px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(234, 243, 255, 0.9)),
-    radial-gradient(circle at top, rgba(143, 215, 255, 0.22), transparent 42%);
+    linear-gradient(145deg, var(--surface-96), var(--surface-muted-94)),
+    radial-gradient(circle at top, var(--accent-16), transparent 42%);
   text-align: center;
   transition: 180ms ease;
 }
@@ -115,7 +115,7 @@ function handleDrop(event) {
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--primary-08);
   color: var(--ink-soft);
 }
 

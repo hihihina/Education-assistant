@@ -297,7 +297,7 @@ async function parseAttachmentFile(file) {
 .page-head__eyebrow,
 .chat-message__role {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -345,11 +345,11 @@ async function parseAttachmentFile(file) {
 .page-btn--primary,
 .send-btn {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .copilot-layout {
@@ -371,7 +371,7 @@ async function parseAttachmentFile(file) {
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
   color: var(--copper);
   font-weight: 700;
 }
@@ -401,7 +401,7 @@ async function parseAttachmentFile(file) {
   padding: 18px;
   border-radius: 22px;
   border: 1px solid var(--line);
-  background: rgba(248, 251, 255, 0.96);
+  background: var(--surface-muted-96);
 }
 
 .chat-message--assistant {
@@ -413,13 +413,13 @@ async function parseAttachmentFile(file) {
 .chat-message--user {
   justify-self: end;
   max-width: min(920px, 88%);
-  background: linear-gradient(135deg, rgba(47, 125, 244, 0.96), rgba(29, 103, 234, 0.92));
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--copper), var(--teal));
+  color: var(--paper-strong);
   border-color: transparent;
 }
 
 .chat-message--user .chat-message__role {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--surface-82);
 }
 
 .chat-message__body {
@@ -463,15 +463,15 @@ async function parseAttachmentFile(file) {
 
 .chat-message__body :deep(blockquote) {
   padding: 10px 14px;
-  border-left: 3px solid rgba(47, 125, 244, 0.28);
-  background: rgba(47, 125, 244, 0.04);
+  border-left: 3px solid var(--primary-28);
+  background: var(--primary-04);
   border-radius: 0 12px 12px 0;
 }
 
 .chat-message__body :deep(code) {
   padding: 2px 6px;
   border-radius: 8px;
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--primary-08);
   font-size: 0.92em;
 }
 
@@ -479,7 +479,7 @@ async function parseAttachmentFile(file) {
   overflow: auto;
   padding: 14px;
   border-radius: 14px;
-  background: rgba(22, 52, 87, 0.06);
+  background: var(--primary-06);
 }
 
 .chat-message__body :deep(pre code) {
@@ -499,46 +499,46 @@ async function parseAttachmentFile(file) {
 .chat-message__body :deep(th),
 .chat-message__body :deep(td) {
   padding: 10px 12px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
   vertical-align: top;
 }
 
 .chat-message__body :deep(th) {
-  background: rgba(47, 125, 244, 0.06);
+  background: var(--primary-06);
 }
 
 .chat-message__body :deep(a) {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: rgba(47, 125, 244, 0.3);
+  text-decoration-color: var(--primary-30);
   text-underline-offset: 3px;
 }
 
 .chat-message--user .chat-message__body :deep(blockquote) {
-  border-left-color: rgba(255, 255, 255, 0.26);
-  background: rgba(255, 255, 255, 0.12);
+  border-left-color: var(--surface-26);
+  background: var(--surface-12);
 }
 
 .chat-message--user .chat-message__body :deep(code) {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--surface-16);
 }
 
 .chat-message--user .chat-message__body :deep(pre) {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--surface-14);
 }
 
 .chat-message--user .chat-message__body :deep(table) {
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: var(--surface-18);
 }
 
 .chat-message--user .chat-message__body :deep(th) {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--surface-14);
 }
 
 .chat-message--user .chat-message__body :deep(th),
 .chat-message--user .chat-message__body :deep(td) {
-  border-bottom-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: var(--surface-14);
 }
 
 .chat-composer {
@@ -579,7 +579,7 @@ async function parseAttachmentFile(file) {
   padding: 16px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--surface-92);
 }
 
 .suggestion-card {
@@ -588,7 +588,7 @@ async function parseAttachmentFile(file) {
 
 .suggestion-card:hover {
   transform: translateY(-1px);
-  border-color: rgba(47, 125, 244, 0.18);
+  border-color: var(--primary-18);
 }
 
 .usage-card strong {
@@ -601,7 +601,7 @@ async function parseAttachmentFile(file) {
   margin-top: 16px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(47, 125, 244, 0.06);
+  background: var(--primary-06);
   line-height: 1.6;
 }
 
@@ -612,7 +612,7 @@ async function parseAttachmentFile(file) {
   padding: 14px 16px;
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: rgba(47, 125, 244, 0.05);
+  background: var(--primary-05);
 }
 
 .chat-attachment-card {
@@ -631,6 +631,30 @@ async function parseAttachmentFile(file) {
 
 .chat-message__attachment {
   margin-bottom: 14px;
+}
+
+.suggestion-card,
+.usage-card,
+.chat-attachment-card,
+.chat-message__attachment,
+.chat-message--assistant {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.suggestion-card,
+.usage-card,
+.chat-attachment-card {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.suggestion-card:hover,
+.usage-card:hover,
+.chat-attachment-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 @media (max-width: 1080px) {

@@ -1,6 +1,6 @@
 <script setup>
+import { onBeforeUnmount, onMounted } from "vue";
 import { RouterLink } from "vue-router";
-import SurfacePanel from "../components/SurfacePanel.vue";
 
 const routeCards = [
   {
@@ -63,247 +63,497 @@ const focusPoints = [
     description: "可围绕知识点和题型数量直接生成试卷，也支持导入参考试卷做风格借鉴。",
   },
 ];
+
+let revealObserver = null;
+
+onMounted(() => {
+  const revealNodes = Array.from(document.querySelectorAll(".reveal-item"));
+  revealNodes.forEach((node, index) => {
+    node.style.transitionDelay = `${Math.min(index * 70, 260)}ms`;
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    revealNodes.forEach((node) => node.classList.add("is-visible"));
+    return;
+  }
+
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.18,
+      rootMargin: "0px 0px -8% 0px",
+    }
+  );
+
+  revealNodes.forEach((node) => revealObserver.observe(node));
+});
+
+onBeforeUnmount(() => {
+  if (revealObserver) {
+    revealObserver.disconnect();
+    revealObserver = null;
+  }
+});
 </script>
 
 <template>
-  <section class="home-dashboard">
-    <header class="home-hero">
-      <div class="home-hero__copy">
-        <p class="home-hero__eyebrow">edua</p>
-        <h2>面向轻量教育辅助的成绩分析、智能助手、智能出题与智能出卷平台</h2>
-        <p class="home-hero__lead">
-          edua 聚焦五类高频任务：基于小题数据做成绩分析、与智能助手连续对话、按年级和学科生成练习题、围绕知识点生成整份试卷，以及围绕原题生成变式训练题。左侧导航帮助你快速切换工作区。
+  <section class="overview-page">
+    <header class="overview-section hero-section reveal-item">
+      <div class="hero-content">
+        <p class="eyebrow">Education Assistant Overview</p>
+        <h1>面向轻量教育辅助的成绩分析、智能助手、智能出题与智能出卷平台</h1>
+        <p class="hero-lead">
+          edua 聚焦五类高频任务：基于小题数据做成绩分析、与智能助手连续对话、按年级和学科生成练习题、围绕知识点生成整份试卷，以及围绕原题生成变式训练题。
         </p>
-        <div class="home-hero__actions">
-          <RouterLink class="home-btn home-btn--primary" to="/analysis">开始成绩分析</RouterLink>
-          <RouterLink class="home-btn home-btn--ghost" to="/ai">进入 AI 工作区</RouterLink>
-        </div>
-      </div>
 
-      <SurfacePanel title="平台概况" eyebrow="总览" compact>
-        <div class="hero-stat-list">
-          <article v-for="item in stats" :key="item.label" class="hero-stat">
+        <div class="hero-actions">
+          <RouterLink class="hero-btn hero-btn--primary" to="/analysis">开始成绩分析</RouterLink>
+          <RouterLink class="hero-btn hero-btn--ghost" to="/ai">进入 AI 工作区</RouterLink>
+        </div>
+
+        <div class="kpi-grid">
+          <article v-for="item in stats" :key="item.label" class="kpi-card">
             <span>{{ item.label }}</span>
             <strong>{{ item.value }}</strong>
             <small>{{ item.hint }}</small>
           </article>
         </div>
-        <div class="hero-note">
-          edua 采用会话式处理方式，Excel 数据、API Key、对话和题目结果都只保留在当前浏览会话内。
-        </div>
-      </SurfacePanel>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <article class="visual-card visual-card--main">
+          <p>Session Runtime</p>
+          <strong>Excel / AI Key / 对话结果仅会话内保存</strong>
+          <div class="visual-bars">
+            <span style="--w: 88%"></span>
+            <span style="--w: 74%"></span>
+            <span style="--w: 66%"></span>
+          </div>
+        </article>
+        <article class="visual-card visual-card--sub">
+          <p>Workspace Entry</p>
+          <strong>分析 + 助手 + 出题 + 出卷 + 变式</strong>
+        </article>
+        <span class="visual-chip visual-chip--one">Class Analysis</span>
+        <span class="visual-chip visual-chip--two">Question Studio</span>
+        <span class="visual-chip visual-chip--three">Paper Composer</span>
+      </div>
     </header>
 
-    <div class="route-grid">
-      <RouterLink v-for="card in routeCards" :key="card.to" :to="card.to" class="route-card">
-        <span class="route-card__tag">{{ card.tag }}</span>
-        <h3>{{ card.title }}</h3>
-        <p>{{ card.description }}</p>
-        <span class="route-card__action">打开工作台</span>
-      </RouterLink>
-    </div>
+    <section class="overview-section reveal-item">
+      <div class="section-head">
+        <p class="eyebrow">Core Modules</p>
+        <h2>核心工作台</h2>
+        <p>保留原有总览内容结构，聚焦你常用的五类工作路径，开箱即用。</p>
+      </div>
 
-    <SurfacePanel title="当前特色" eyebrow="当前版本">
+      <div class="module-grid">
+        <RouterLink v-for="card in routeCards" :key="card.to" :to="card.to" class="module-card">
+          <span class="module-tag">{{ card.tag }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.description }}</p>
+          <span class="module-link">打开工作台</span>
+        </RouterLink>
+      </div>
+    </section>
+
+    <section class="overview-section reveal-item">
+      <div class="section-head">
+        <p class="eyebrow">Current Highlights</p>
+        <h2>当前特色</h2>
+        <p>围绕任务分区、响应式体验与会话式处理能力，保持轻量且高效的操作体验。</p>
+      </div>
+
       <div class="focus-grid">
-        <article v-for="item in focusPoints" :key="item.title" class="focus-item">
-          <strong>{{ item.title }}</strong>
+        <article v-for="item in focusPoints" :key="item.title" class="focus-card">
+          <h3>{{ item.title }}</h3>
           <p>{{ item.description }}</p>
         </article>
       </div>
-    </SurfacePanel>
+    </section>
   </section>
 </template>
 
 <style scoped>
-.home-dashboard {
+.overview-page {
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 34%),
+    linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+}
+
+.overview-section {
+  padding: clamp(80px, 9vw, 100px) clamp(20px, 5vw, 72px);
+}
+
+.overview-section + .overview-section {
+  border-top: 1px solid var(--primary-08);
+}
+
+.hero-section {
   display: grid;
-  gap: 22px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: clamp(28px, 4vw, 52px);
+  align-items: center;
 }
 
-.home-hero {
+.section-head {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(340px, 460px);
-  gap: 20px;
-  align-items: stretch;
+  gap: 14px;
+  margin-bottom: clamp(26px, 3vw, 34px);
+  max-width: 74ch;
 }
 
-.home-hero__copy {
-  padding: clamp(26px, 3vw, 38px);
-  border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(235, 244, 255, 0.9));
-  box-shadow: var(--shadow-md);
-}
-
-.home-hero__eyebrow,
-.route-card__tag,
-.route-card__action {
-  display: inline-flex;
+.eyebrow,
+.module-tag,
+.module-link {
   margin: 0;
   font-size: 12px;
+  line-height: 1.2;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--copper);
 }
 
-.home-hero h2 {
+.hero-content h1 {
   margin: 14px 0 0;
-  font-size: clamp(2rem, 3.2vw, 3.6rem);
-  line-height: 1.08;
-  max-width: none;
+  font-size: clamp(36px, 4.3vw, 48px);
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--copper);
 }
 
-.home-hero__lead,
-.route-card p,
-.focus-item p,
-.hero-note,
-.hero-stat span,
-.hero-stat small {
+.section-head h2 {
+  margin: 0;
+  font-size: clamp(24px, 2.9vw, 32px);
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--copper);
+}
+
+.hero-lead,
+.section-head p,
+.module-card p,
+.focus-card p,
+.kpi-card span,
+.kpi-card small {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
   color: var(--ink-soft);
 }
 
-.home-hero__lead {
-  max-width: 58ch;
-  margin: 16px 0 0;
-  font-size: 1.02rem;
-}
-
-.home-hero__actions {
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 26px;
+  margin-top: 30px;
 }
 
-.home-btn {
+.hero-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 13px 18px;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.hero-btn--primary {
+  background: linear-gradient(120deg, var(--copper), var(--teal));
+  color: var(--paper-strong);
+}
+
+.hero-btn--ghost {
+  background: var(--paper-strong);
+  border-color: var(--primary-22);
+  color: var(--copper);
+}
+
+.hero-btn:hover {
+  transform: translateY(-1px);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.kpi-card,
+.module-card,
+.focus-card,
+.visual-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.kpi-card::before,
+.module-card::before,
+.focus-card::before,
+.visual-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--surface-68), transparent 38%);
+  pointer-events: none;
+}
+
+.kpi-card::after,
+.module-card::after,
+.focus-card::after,
+.visual-card::after {
+  content: "";
+  position: absolute;
+  top: -42%;
+  right: -24%;
+  width: 62%;
+  height: 84%;
+  background: radial-gradient(circle, var(--card-glow), transparent 68%);
+  pointer-events: none;
+}
+
+.kpi-card > *,
+.module-card > *,
+.focus-card > *,
+.visual-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.kpi-card {
+  padding: 16px;
+}
+
+.kpi-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(24px, 2.1vw, 30px);
+  line-height: 1.15;
+  color: var(--copper);
+}
+
+.kpi-card small {
+  display: block;
+  margin-top: 8px;
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 330px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 0% 0%, var(--accent-12), transparent 44%),
+    linear-gradient(180deg, var(--surface-98), var(--surface-muted-92));
+}
+
+.visual-card {
+  min-width: 0;
+  padding: 16px;
+}
+
+.visual-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+.visual-card strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--copper);
+  line-height: 1.28;
+}
+
+.visual-card--main strong {
+  font-size: clamp(1.08rem, 0.62vw + 0.96rem, 1.34rem);
+}
+
+.visual-card--sub strong {
+  font-size: clamp(1.02rem, 0.42vw + 0.94rem, 1.2rem);
+  word-break: break-word;
+}
+
+.visual-card--main {
+  width: min(100%, 340px);
+}
+
+.visual-card--sub {
+  width: min(100%, 260px);
+  margin-top: 14px;
+  margin-left: auto;
+}
+
+.visual-bars {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.visual-bars span {
+  display: block;
+  height: 8px;
+  width: var(--w);
   border-radius: 999px;
-  font-weight: 700;
-  transition: 180ms ease;
+  background: linear-gradient(90deg, var(--copper), var(--teal));
 }
 
-.home-btn--primary {
-  background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
-  box-shadow: 0 18px 34px rgba(47, 125, 244, 0.22);
+.visual-chip {
+  position: absolute;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--primary-20);
+  background: var(--surface-94);
+  font-size: 12px;
+  color: var(--copper);
 }
 
-.home-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+.visual-chip--one {
+  top: 22px;
+  right: 22px;
 }
 
-.hero-stat-list,
-.route-grid,
+.visual-chip--two {
+  bottom: 76px;
+  left: 24px;
+}
+
+.visual-chip--three {
+  right: 24px;
+  bottom: 22px;
+}
+
+.module-grid,
 .focus-grid {
   display: grid;
   gap: 16px;
 }
 
-.hero-stat-list {
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
-}
-
-.hero-stat {
-  padding: 16px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: rgba(248, 251, 255, 0.92);
-}
-
-.hero-stat strong {
-  display: block;
-  margin-top: 10px;
-  font-size: 1.6rem;
-}
-
-.hero-stat small {
-  display: block;
-  margin-top: 8px;
-}
-
-.hero-note {
-  margin-top: 18px;
-  padding: 16px 18px;
-  border-radius: 18px;
-  background: rgba(47, 125, 244, 0.06);
-}
-
-.route-grid {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.route-card {
-  display: grid;
-  gap: 12px;
-  align-content: start;
-  padding: 22px;
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--shadow-md);
-  transition: 180ms ease;
-}
-
-.route-card:hover,
-.home-btn:hover {
-  transform: translateY(-1px);
-}
-
-.route-card h3,
-.focus-item strong {
-  font-size: 1.08rem;
-}
-
-.route-card h3 {
-  margin: 0;
-}
-
-.route-card p,
-.focus-item p {
-  margin: 0;
-  line-height: 1.65;
+.module-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .focus-grid {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.focus-item {
-  padding: 18px;
+.module-card,
+.focus-card {
+  padding: 20px;
   align-content: start;
-  border-radius: 20px;
-  border: 1px solid var(--line);
-  background: rgba(248, 251, 255, 0.92);
 }
 
-.focus-item strong {
-  display: block;
-  margin-bottom: 8px;
+.module-card h3,
+.focus-card h3 {
+  margin: 14px 0 0;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--copper);
 }
 
-@media (max-width: 1120px) {
-  .home-hero,
-  .route-grid,
+.module-card p,
+.focus-card p {
+  margin-top: 10px;
+}
+
+.module-link {
+  margin-top: 14px;
+  color: var(--teal);
+}
+
+.kpi-card:hover,
+.module-card:hover,
+.focus-card:hover,
+.visual-card:hover {
+  border-color: var(--card-border-hover);
+  background: linear-gradient(140deg, var(--primary-05), var(--accent-08) 58%, var(--surface-98));
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
+  transform: translateY(-3px);
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 560ms ease, transform 560ms ease;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1220px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .visual-card--main,
+  .visual-card--sub {
+    width: 100%;
+    margin: 0;
+  }
+
+  .visual-chip {
+    position: static;
+    display: inline-flex;
+    margin: 6px 8px 0 0;
+  }
+
+  .visual-chip--one,
+  .visual-chip--two,
+  .visual-chip--three {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+  }
+
+  .module-grid,
+  .focus-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .kpi-grid,
+  .module-grid,
   .focus-grid {
     grid-template-columns: 1fr;
   }
 
-  .home-hero h2 {
-    max-width: none;
-  }
-}
-
-@media (max-width: 760px) {
-  .hero-stat-list {
-    grid-template-columns: 1fr;
+  .hero-actions {
+    width: 100%;
   }
 
-  .home-hero__copy {
-    padding: 24px;
+  .hero-btn {
+    flex: 1 1 220px;
   }
 }
 </style>

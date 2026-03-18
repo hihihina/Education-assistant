@@ -121,7 +121,7 @@ function renderQuestionChart() {
         barWidth: 18,
         data: [...weakQuestions.value].reverse().map((item) => ({
           value: item.averageRate,
-          itemStyle: { color: item.averageRate < 60 ? "#e35d67" : item.averageRate < 75 ? "#8aa9d6" : "#2f7df4", borderRadius: [0, 10, 10, 0] },
+          itemStyle: { color: item.averageRate < 60 ? "#e35d67" : item.averageRate < 75 ? "#94a3b8" : "#0a2463", borderRadius: [0, 10, 10, 0] },
         })),
       },
     ],
@@ -143,7 +143,7 @@ function renderKnowledgeChart() {
         return `${item.name}<br/>掌握率：${formatPercent(item.averageRate)}<br/>薄弱小题：${item.weakQuestionLabel || "--"}`;
       },
     },
-    series: [{ type: "bar", barWidth: 18, data: [...weakKnowledge.value].reverse().map((item) => item.averageRate), itemStyle: { color: "#2f7df4", borderRadius: [0, 10, 10, 0] } }],
+    series: [{ type: "bar", barWidth: 18, data: [...weakKnowledge.value].reverse().map((item) => item.averageRate), itemStyle: { color: "#0a2463", borderRadius: [0, 10, 10, 0] } }],
   });
 }
 
@@ -330,8 +330,8 @@ function buildClassInsightSummary(currentDataset) {
 .analysis-hero {
   padding: 28px;
   border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(234, 243, 255, 0.92));
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
   box-shadow: var(--shadow-lg);
 }
 
@@ -342,7 +342,7 @@ function buildClassInsightSummary(currentDataset) {
 .analysis-hero__eyebrow {
   margin: 0;
   color: var(--copper);
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -371,11 +371,11 @@ function buildClassInsightSummary(currentDataset) {
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #fff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .upload-layout {
@@ -392,7 +392,7 @@ function buildClassInsightSummary(currentDataset) {
   padding: 16px 18px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .upload-actions,
@@ -470,7 +470,7 @@ table {
 th,
 td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
   vertical-align: top;
 }
@@ -478,7 +478,7 @@ td {
 th {
   position: sticky;
   top: 0;
-  background: rgba(244, 248, 255, 0.96);
+  background: var(--surface-96);
 }
 
 .pill {
@@ -486,7 +486,7 @@ th {
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
 }
 
@@ -497,12 +497,36 @@ th {
 
 .pill--mid {
   color: var(--ink-soft);
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
 }
 
 .pill--bad {
   color: var(--danger);
   background: rgba(190, 78, 63, 0.12);
+}
+
+.analysis-hero,
+.requirements article,
+.table-wrap {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.analysis-hero {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 40%),
+    linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+}
+
+.requirements article {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.requirements article:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 @media (max-width: 1320px) {

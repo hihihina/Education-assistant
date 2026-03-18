@@ -537,7 +537,7 @@ function getDifficultyRequestLabel(meta) {
 .paper-item__type,
 .paper-item__score {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -593,11 +593,11 @@ function getDifficultyRequestLabel(meta) {
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .setup-shell {
@@ -667,12 +667,12 @@ function getDifficultyRequestLabel(meta) {
 .type-chip {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .type-chip--active {
-  border-color: rgba(47, 125, 244, 0.26);
-  background: rgba(47, 125, 244, 0.12);
+  border-color: rgba(10, 36, 99, 0.26);
+  background: rgba(10, 36, 99, 0.12);
   color: var(--copper);
 }
 
@@ -694,7 +694,7 @@ function getDifficultyRequestLabel(meta) {
   gap: 8px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
   cursor: pointer;
 }
 
@@ -713,8 +713,8 @@ function getDifficultyRequestLabel(meta) {
 }
 
 .difficulty-mode-card--active {
-  border-color: rgba(47, 125, 244, 0.22);
-  box-shadow: inset 0 0 0 1px rgba(47, 125, 244, 0.1);
+  border-color: rgba(10, 36, 99, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(10, 36, 99, 0.1);
 }
 
 .difficulty-factor {
@@ -729,7 +729,7 @@ function getDifficultyRequestLabel(meta) {
 .preset-chip {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
   text-align: left;
 }
 
@@ -742,7 +742,7 @@ function getDifficultyRequestLabel(meta) {
 .mix-card {
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .status-card strong,
@@ -786,7 +786,7 @@ function getDifficultyRequestLabel(meta) {
   padding: 20px 22px;
   border: 1px solid var(--line);
   border-radius: 22px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .raw-response-card strong {
@@ -852,7 +852,7 @@ function getDifficultyRequestLabel(meta) {
 .paper-item__index,
 .paper-item__type,
 .paper-item__score {
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
   color: var(--ink-soft);
 }
 
@@ -862,7 +862,7 @@ function getDifficultyRequestLabel(meta) {
 }
 
 .paper-item__difficulty--medium {
-  background: rgba(47, 125, 244, 0.12);
+  background: rgba(10, 36, 99, 0.12);
   color: var(--copper);
 }
 
@@ -877,7 +877,7 @@ function getDifficultyRequestLabel(meta) {
 }
 
 .paper-item__section-label {
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -899,7 +899,7 @@ function getDifficultyRequestLabel(meta) {
 .option-card {
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.86);
+  background: rgba(249, 250, 251, 0.86);
 }
 
 .paper-item__detail-stack {
@@ -911,11 +911,53 @@ function getDifficultyRequestLabel(meta) {
 .paper-item__detail-box {
   padding: 18px 20px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.86);
+  background: rgba(249, 250, 251, 0.86);
 }
 
 .paper-item__detail-box--analysis {
-  background: rgba(235, 244, 255, 0.82);
+  background: rgba(243, 244, 246, 0.82);
+}
+
+.type-chip,
+.difficulty-mode-card,
+.preset-chip,
+.status-card,
+.mix-card,
+.raw-response-card,
+.paper-item,
+.option-card,
+.paper-item__detail-box {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.type-chip--active {
+  border-color: var(--primary-26);
+  background: linear-gradient(148deg, var(--primary-12), var(--accent-12));
+  box-shadow: inset 0 0 0 1px var(--primary-10);
+  color: var(--copper);
+}
+
+.difficulty-mode-card--active {
+  border-color: var(--primary-24);
+  box-shadow: inset 0 0 0 1px var(--primary-12), var(--card-shadow);
+}
+
+.paper-item__detail-box--analysis {
+  background: linear-gradient(156deg, var(--accent-08), var(--surface-96) 64%);
+}
+
+.type-chip:hover,
+.difficulty-mode-card:hover,
+.preset-chip:hover,
+.paper-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 .paper-item__detail-box :deep(.rich-content),

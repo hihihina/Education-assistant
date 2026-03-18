@@ -154,7 +154,7 @@ function renderRankingChart() {
     xAxis: { type: "category", data: dataset.value.classRankings.map((item) => item.className), axisLabel: { rotate: 24 } },
     yAxis: { type: "value", max: 100, axisLabel: { formatter: "{value}%" } },
     tooltip: { trigger: "axis", formatter: (params) => `${params[0].axisValue}<br/>班级均分率：${formatPercent(params[0].value)}` },
-    series: [{ type: "bar", data: dataset.value.classRankings.map((item) => item.averageRate), itemStyle: { color: "#2f7df4", borderRadius: [10, 10, 0, 0] } }],
+    series: [{ type: "bar", data: dataset.value.classRankings.map((item) => item.averageRate), itemStyle: { color: "#0a2463", borderRadius: [10, 10, 0, 0] } }],
   });
 }
 
@@ -207,7 +207,7 @@ function renderHeatmapChart() {
       text: ["高", "低"],
       textGap: 10,
       inRange: {
-        color: ["#e35d67", "#f7d08a", "#8fd7ff", "#2f7df4"],
+        color: ["#e35d67", "#f7d08a", "#a5b4fc", "#0a2463"],
       },
     },
     series: [
@@ -461,8 +461,8 @@ function formatRateGap(value) {
 .analysis-hero {
   padding: 28px;
   border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(234, 243, 255, 0.92));
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
   box-shadow: var(--shadow-lg);
 }
 
@@ -473,7 +473,7 @@ function formatRateGap(value) {
 .analysis-hero__eyebrow {
   margin: 0;
   color: var(--copper);
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -502,11 +502,11 @@ function formatRateGap(value) {
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #fff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .upload-layout {
@@ -523,7 +523,7 @@ function formatRateGap(value) {
   padding: 16px 18px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .upload-actions,
@@ -647,7 +647,7 @@ table {
 th,
 td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
   vertical-align: top;
 }
@@ -655,7 +655,31 @@ td {
 th {
   position: sticky;
   top: 0;
-  background: rgba(244, 248, 255, 0.96);
+  background: var(--surface-96);
+}
+
+.analysis-hero,
+.requirements article,
+.table-wrap {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.analysis-hero {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 40%),
+    linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+}
+
+.requirements article {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.requirements article:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 @media (max-width: 1320px) {
