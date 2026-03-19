@@ -91,7 +91,8 @@ onUnmounted(() => {
         :class="{
           'app-shell__content--immersive': isImmersive,
           'app-shell__content--auth': isAuthPage,
-       , 'app-shell__content--fluid': isFluidContent }"
+          'app-shell__content--fluid': isFluidContent,
+        }"
       >
         <RouterView />
       </main>
