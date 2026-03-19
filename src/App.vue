@@ -23,9 +23,19 @@ const fluidRouteNames = new Set([
   "analysis-failure",
 ]);
 
-const isImmersive = computed(() => route.name === "analysis-class-question" || route.name === "analysis-grade-overview");
-const isFluidContent = computed(() => fluidRouteNames.has(String(route.name || "")));
-const activityEvents = ["click", "keydown", "mousemove", "touchstart", "scroll"];
+const isImmersive = computed(
+  () =>
+    route.name === "analysis-class-question" ||
+    route.name === "analysis-grade-overview"
+);
+const isAuthPage = computed(() => route.name === "login");
+const activityEvents = [
+  "click",
+  "keydown",
+  "mousemove",
+  "touchstart",
+  "scroll",
+];
 
 function refreshSession() {
   store.touchSession();
@@ -33,10 +43,14 @@ function refreshSession() {
 
 function updateSidebarCollapsed(nextValue) {
   sidebarCollapsed.value = Boolean(nextValue);
-  window.localStorage.setItem("edua.sidebarCollapsed", sidebarCollapsed.value ? "1" : "0");
+  window.localStorage.setItem(
+    "edua.sidebarCollapsed",
+    sidebarCollapsed.value ? "1" : "0"
+  );
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await store.initAuth();
   const cachedState = window.localStorage.getItem("edua.sidebarCollapsed");
   if (cachedState === "1" || cachedState === "0") {
     sidebarCollapsed.value = cachedState === "1";
@@ -59,12 +73,26 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="app-shell" :class="{ 'app-shell--collapsed': sidebarCollapsed, 'app-shell--fluid': isFluidContent }">
-    <AppSidebar :collapsed="sidebarCollapsed" @toggle-collapse="updateSidebarCollapsed" />
+  <div
+    class="app-shell"
+    :class="{
+      'app-shell--collapsed': sidebarCollapsed,
+      'app-shell--fluid': isFluidContent,
+    }"
+  >
+    <AppSidebar
+      v-if="!isAuthPage"
+      :collapsed="sidebarCollapsed"
+      @toggle-collapse="updateSidebarCollapsed"
+    />
     <div class="app-shell__main">
       <main
         class="app-shell__content"
-        :class="{ 'app-shell__content--immersive': isImmersive, 'app-shell__content--fluid': isFluidContent }"
+        :class="{
+          'app-shell__content--immersive': isImmersive,
+          'app-shell__content--auth': isAuthPage,
+          'app-shell__content--fluid': isFluidContent,
+        }"
       >
         <RouterView />
       </main>

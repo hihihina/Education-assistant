@@ -467,18 +467,9 @@ textarea {
   max-width: none;
 }
 
-.app-shell__content--fluid > * {
-  max-width: none;
-}
-
-.app-shell__content > * {
-  width: 100%;
-  max-width: var(--content-max-width);
-  margin-inline: auto;
-}
-
-.app-shell__content--immersive > * {
-  max-width: none;
+.app-shell__content--auth {
+  padding: 0;
+  min-height: calc(100vh - 2 * clamp(14px, 1.8vw, 22px));
 }
 
 .surface-panel {

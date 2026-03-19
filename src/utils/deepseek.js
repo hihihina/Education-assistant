@@ -89,13 +89,10 @@ ${DETAILED_ANALYSIS_REQUIREMENT}
       },
       {
         role: "user",
-        content: `年级：${grade}\n科目：${subject}\n题量：${count}\n难度模式：${
-          difficultyMode === "coefficient" ? "按难度系数出题" : "默认梯度"
-        }\n难度系数：${difficultyMode === "coefficient" ? `${difficultyCoefficient}/10` : "默认梯度，不单独指定"}\n题型范围：${
-          normalizedTypes.length ? normalizedTypes.join("、") : "未指定，允许混合题型"
-        }\n补充要求：${
-          prompt || "围绕核心知识点进行综合训练，难度要有梯度。"
-        }\n请生成一套练习题。`,
+        content: `年级：${grade}\n科目：${subject}\n题量：${count}\n难度模式：${difficultyMode === "coefficient" ? "按难度系数出题" : "默认梯度"
+          }\n难度系数：${difficultyMode === "coefficient" ? `${difficultyCoefficient}/10` : "默认梯度，不单独指定"}\n题型范围：${normalizedTypes.length ? normalizedTypes.join("、") : "未指定，允许混合题型"
+          }\n补充要求：${prompt || "围绕核心知识点进行综合训练，难度要有梯度。"
+          }\n请生成一套练习题。`,
       },
     ],
     responseFormat: { type: "json_object" },
@@ -241,13 +238,10 @@ ${DETAILED_ANALYSIS_REQUIREMENT}
       },
       {
         role: "user",
-        content: `年级：${grade}\n科目：${subject}\n原题：\n${originalQuestion}\n\n确认知识点：${
-          normalizedKnowledge.length ? normalizedKnowledge.join("、") : "未填写"
-        }\n题量：${count}\n题型范围：${
-          normalizedTypes.length ? normalizedTypes.join("、") : "未指定，允许混合题型"
-        }\n难度模式：${difficultyMode === "coefficient" ? "按难度系数出题" : "默认梯度"}\n难度系数：${
-          difficultyMode === "coefficient" ? `${difficultyCoefficient}/10` : "默认梯度，不单独指定"
-        }\n补充要求：${prompt || "围绕确认后的知识点生成几道结构相近但表述不同的训练题。"}\n\n请生成变式题。`,
+        content: `年级：${grade}\n科目：${subject}\n原题：\n${originalQuestion}\n\n确认知识点：${normalizedKnowledge.length ? normalizedKnowledge.join("、") : "未填写"
+          }\n题量：${count}\n题型范围：${normalizedTypes.length ? normalizedTypes.join("、") : "未指定，允许混合题型"
+          }\n难度模式：${difficultyMode === "coefficient" ? "按难度系数出题" : "默认梯度"}\n难度系数：${difficultyMode === "coefficient" ? `${difficultyCoefficient}/10` : "默认梯度，不单独指定"
+          }\n补充要求：${prompt || "围绕确认后的知识点生成几道结构相近但表述不同的训练题。"}\n\n请生成变式题。`,
       },
     ],
     responseFormat: { type: "json_object" },
@@ -270,11 +264,11 @@ export async function requestPaperSet({
     : [];
   const normalizedSections = Array.isArray(sectionConfigs)
     ? sectionConfigs
-        .map((item) => ({
-          type: String(item?.type || "").trim(),
-          count: Number(item?.count || 0),
-        }))
-        .filter((item) => item.type && Number.isInteger(item.count) && item.count > 0)
+      .map((item) => ({
+        type: String(item?.type || "").trim(),
+        count: Number(item?.count || 0),
+      }))
+      .filter((item) => item.type && Number.isInteger(item.count) && item.count > 0)
     : [];
 
   return callDeepSeek({
@@ -337,7 +331,7 @@ ${buildReferencePaperPrompt(referencePapers)}
       },
     ],
     responseFormat: { type: "json_object" },
-    maxTokens: 5200,
+    maxTokens: 8000,
     temperature: 0.45,
   });
 }

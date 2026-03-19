@@ -1,5 +1,6 @@
 import { reactive } from "vue";
-import { parseClassQuestionBundle, parseGradeOverviewBundle } from "../utils/questionAnalysis";
+import { parseClassQuestionBundle, parseGradeOverviewBundle } from "../utils/questionAnalysis.js";
+import { api } from "../utils/api.js";
 
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
 const ANALYSIS_MODES = ["classQuestion", "gradeOverview"];
@@ -15,6 +16,11 @@ const state = reactive({
       visible: false,
       message: "",
     },
+  },
+  auth: {
+    user: null,
+    isLoggedIn: false,
+    loading: false,
   },
   ai: {
     apiKey: "",
@@ -53,6 +59,7 @@ export function useEduScopeStore() {
     state,
     ui: state.ui,
     ai: state.ai,
+    auth: state.auth,
     get datasets() {
       return state.datasets;
     },
@@ -67,6 +74,10 @@ export function useEduScopeStore() {
     startSessionTimer,
     touchSession,
     clearAllSession,
+    setUser,
+    clearUser,
+    initAuth,
+    logout,
     async importClassQuestion(blueprintFile, detailFile) {
       const result = await parseClassQuestionBundle({ blueprintFile, detailFile });
       if (!result.success) {
@@ -205,4 +216,48 @@ function clearAllSession() {
     knowledgeDraft: [],
     lastPaper: null,
   };
+}
+
+function setUser(user) {
+  state.auth.user = user;
+  state.auth.isLoggedIn = true;
+}
+
+function clearUser() {
+  state.auth.user = null;
+  state.auth.isLoggedIn = false;
+}
+
+async function initAuth() {
+  const token = localStorage.getItem("auth_token");
+  if (!token) {
+    return false;
+  }
+
+  state.auth.loading = true;
+  try {
+    const result = await api.getCurrentUser();
+    if (result.success) {
+      setUser(result.data.user);
+      return true;
+    }
+  } catch (error) {
+    console.error("Failed to get current user:", error);
+    clearUser();
+    localStorage.removeItem("auth_token");
+  } finally {
+    state.auth.loading = false;
+  }
+  return false;
+}
+
+async function logout() {
+  try {
+    await api.logout();
+  } catch (error) {
+    console.error("Logout error:", error);
+  } finally {
+    clearUser();
+    localStorage.removeItem("auth_token");
+  }
 }
