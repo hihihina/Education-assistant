@@ -416,12 +416,12 @@ function buildClassInsightSummary(currentDataset) {
 }
 
 .chart-host {
-  height: 320px;
+  height: clamp(300px, 32vh, 460px);
 }
 
 .ai-insight-empty,
 .ai-insight-content {
-  min-height: 320px;
+  min-height: clamp(300px, 32vh, 460px);
 }
 
 .ai-insight-empty {
@@ -527,6 +527,30 @@ th {
   transform: translateY(-2px);
   border-color: var(--card-border-hover);
   box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
+}
+
+@media (min-width: 1920px) {
+  .analysis-page,
+  .upload-stack,
+  .requirements,
+  .chart-grid,
+  .metric-grid,
+  .table-grid {
+    gap: 22px;
+  }
+
+  .analysis-hero {
+    padding: clamp(30px, 1.6vw, 40px);
+  }
+
+  .chart-host {
+    height: clamp(340px, 34vh, 520px);
+  }
+
+  .ai-insight-empty,
+  .ai-insight-content {
+    min-height: clamp(340px, 34vh, 520px);
+  }
 }
 
 @media (max-width: 1320px) {

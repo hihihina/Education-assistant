@@ -460,6 +460,41 @@ function toggleCollapse() {
   border-radius: 999px;
 }
 
+@media (min-width: 1920px) {
+  .app-sidebar {
+    gap: 22px;
+    padding: clamp(18px, 1vw, 26px);
+  }
+
+  .brand-mark {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .app-sidebar__brand h1 {
+    font-size: 1.26rem;
+  }
+
+  .sidebar-link {
+    padding: 12px 15px;
+  }
+
+  .sidebar-link__badge {
+    width: 36px;
+    height: 36px;
+  }
+
+  .sidebar-link strong {
+    font-size: 1rem;
+  }
+
+  .sidebar-note,
+  .status-card {
+    padding: 16px 18px;
+  }
+}
+
 @media (max-width: 1100px) {
   .app-sidebar {
     position: static;

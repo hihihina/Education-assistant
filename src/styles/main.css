@@ -34,8 +34,11 @@
   --font-size-caption: clamp(0.79rem, 0.1vw + 0.76rem, 0.88rem);
   --font-size-title-xl: clamp(1.72rem, 1.05rem + 2.15vw, 2.95rem);
   --font-size-title-lg: clamp(1.42rem, 1rem + 1.2vw, 2.2rem);
-  --app-max-width: 1680px;
-  --content-max-width: 1320px;
+  --app-max-width: 2520px;
+  --content-max-width: clamp(1180px, 78vw, 1880px);
+  --shell-sidebar-width: clamp(220px, 14vw, 320px);
+  --shell-sidebar-collapsed-width: clamp(88px, 6vw, 120px);
+  --shell-gap: clamp(16px, 1.2vw + 8px, 34px);
   --primary-04: rgba(var(--primary-rgb), 0.04);
   --primary-05: rgba(var(--primary-rgb), 0.05);
   --primary-06: rgba(var(--primary-rgb), 0.06);
@@ -223,7 +226,7 @@ body,
 }
 
 html {
-  font-size: clamp(14px, 0.18vw + 13.6px, 17px);
+  font-size: clamp(14px, 0.16vw + 13.5px, 18px);
 }
 
 body {
@@ -429,15 +432,15 @@ textarea {
   display: grid;
   width: min(var(--app-max-width), 100%);
   margin-inline: auto;
-  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-  gap: clamp(16px, 1.8vw, 28px);
+  grid-template-columns: minmax(220px, var(--shell-sidebar-width)) minmax(0, 1fr);
+  gap: var(--shell-gap);
   align-items: start;
   min-height: calc(100vh - 2 * clamp(12px, 1.4vw, 24px));
   transition: grid-template-columns 180ms ease, gap 180ms ease;
 }
 
 .app-shell--collapsed {
-  grid-template-columns: minmax(88px, 110px) minmax(0, 1fr);
+  grid-template-columns: minmax(88px, var(--shell-sidebar-collapsed-width)) minmax(0, 1fr);
 }
 
 .app-shell__main {
@@ -675,7 +678,30 @@ textarea {
 
 @media (min-width: 1760px) {
   :root {
-    --content-max-width: 1400px;
+    --content-max-width: clamp(1360px, 76vw, 1960px);
+    --shell-sidebar-width: clamp(236px, 13.2vw, 338px);
+    --shell-gap: clamp(18px, 1.1vw + 8px, 36px);
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --content-max-width: clamp(1560px, 74vw, 2140px);
+    --shell-sidebar-width: clamp(252px, 12vw, 360px);
+    --shell-sidebar-collapsed-width: clamp(96px, 5vw, 128px);
+  }
+
+  html {
+    font-size: clamp(15px, 0.12vw + 13.8px, 18.5px);
+  }
+
+  #app {
+    padding: clamp(14px, 1vw, 28px);
+  }
+
+  .surface-panel__header,
+  .surface-panel__body {
+    padding: clamp(20px, 1.2vw, 30px);
   }
 }
 
