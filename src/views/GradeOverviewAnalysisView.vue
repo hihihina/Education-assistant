@@ -154,7 +154,7 @@ function renderRankingChart() {
     xAxis: { type: "category", data: dataset.value.classRankings.map((item) => item.className), axisLabel: { rotate: 24 } },
     yAxis: { type: "value", max: 100, axisLabel: { formatter: "{value}%" } },
     tooltip: { trigger: "axis", formatter: (params) => `${params[0].axisValue}<br/>班级均分率：${formatPercent(params[0].value)}` },
-    series: [{ type: "bar", data: dataset.value.classRankings.map((item) => item.averageRate), itemStyle: { color: "#2f7df4", borderRadius: [10, 10, 0, 0] } }],
+    series: [{ type: "bar", data: dataset.value.classRankings.map((item) => item.averageRate), itemStyle: { color: "#0a2463", borderRadius: [10, 10, 0, 0] } }],
   });
 }
 
@@ -207,7 +207,7 @@ function renderHeatmapChart() {
       text: ["高", "低"],
       textGap: 10,
       inRange: {
-        color: ["#e35d67", "#f7d08a", "#8fd7ff", "#2f7df4"],
+        color: ["#e35d67", "#f7d08a", "#a5b4fc", "#0a2463"],
       },
     },
     series: [
@@ -448,21 +448,23 @@ function formatRateGap(value) {
 .analysis-page {
   padding-bottom: 24px;
   align-content: start;
+  min-width: 0;
 }
 
 .analysis-hero,
 .topbar {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 16px;
   align-items: start;
 }
 
 .analysis-hero {
-  padding: 28px;
+  padding: clamp(24px, 2.4vw, 32px);
   border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(234, 243, 255, 0.92));
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
   box-shadow: var(--shadow-lg);
 }
 
@@ -473,7 +475,7 @@ function formatRateGap(value) {
 .analysis-hero__eyebrow {
   margin: 0;
   color: var(--copper);
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -491,6 +493,7 @@ function formatRateGap(value) {
   margin: 12px 0 0;
   color: var(--ink-soft);
   line-height: 1.7;
+  text-wrap: wrap;
 }
 
 .page-btn {
@@ -498,21 +501,22 @@ function formatRateGap(value) {
   border: 0;
   border-radius: 999px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #fff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .upload-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.14fr) minmax(320px, 0.86fr);
+  gap: clamp(18px, 2vw, 24px);
   align-items: start;
 }
 
@@ -523,7 +527,7 @@ function formatRateGap(value) {
   padding: 16px 18px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .upload-actions,
@@ -534,25 +538,41 @@ function formatRateGap(value) {
 }
 
 .upload-actions {
-  margin-top: 12px;
-  padding-top: 6px;
+  justify-content: flex-end;
+  margin-top: clamp(18px, 2vw, 28px);
+  padding-top: 10px;
 }
 
 .metric-grid {
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
 .chart-grid {
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 22px);
   align-items: start;
 }
 
+.chart-grid > *,
+.table-grid > *,
+.upload-layout > * {
+  min-width: 0;
+}
+
 .chart-host {
-  height: 320px;
+  height: clamp(300px, 28vw, 360px);
 }
 
 .chart-host--heatmap {
-  height: 620px;
+  height: clamp(560px, 48vw, 760px);
+}
+
+.chart-grid__ranking {
+  grid-column: span 4;
+}
+
+.chart-grid__compare {
+  grid-column: span 8;
 }
 
 .chart-grid__heatmap {
@@ -560,11 +580,11 @@ function formatRateGap(value) {
 }
 
 .table-wrap--compact {
-  max-height: 320px;
+  max-height: clamp(360px, 48vw, 520px);
 }
 
 .compare-table {
-  min-width: 880px;
+  min-width: 760px;
 }
 
 .compare-table td strong {
@@ -594,6 +614,8 @@ function formatRateGap(value) {
   margin: 14px 0 0;
   color: var(--ink-soft);
   line-height: 1.65;
+  text-wrap: wrap;
+  padding-right: clamp(0px, 4vw, 120px);
 }
 
 .ai-insight-empty,
@@ -628,7 +650,7 @@ function formatRateGap(value) {
 }
 
 .table-grid {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
 }
 
 .table-wrap {
@@ -647,7 +669,7 @@ table {
 th,
 td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
   vertical-align: top;
 }
@@ -655,14 +677,52 @@ td {
 th {
   position: sticky;
   top: 0;
-  background: rgba(244, 248, 255, 0.96);
+  background: var(--surface-96);
 }
 
-@media (max-width: 1320px) {
-  .upload-layout,
-  .chart-grid,
-  .table-grid {
+.analysis-hero,
+.requirements article,
+.table-wrap {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.analysis-hero {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 40%),
+    linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+}
+
+.requirements article {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.requirements article:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
+}
+
+@media (max-width: 1460px) {
+  .chart-grid__ranking {
+    grid-column: span 5;
+  }
+
+  .chart-grid__compare {
+    grid-column: span 7;
+  }
+}
+
+@media (max-width: 1240px) {
+  .upload-layout {
     grid-template-columns: 1fr;
+  }
+
+  .chart-grid__ranking,
+  .chart-grid__compare,
+  .chart-grid__heatmap {
+    grid-column: 1 / -1;
   }
 }
 
@@ -672,6 +732,26 @@ th {
   .topbar__actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .upload-actions,
+  .topbar__actions {
+    width: 100%;
+  }
+
+  .upload-actions .page-btn,
+  .topbar__actions .page-btn {
+    flex: 1 1 100%;
+  }
+
+  .chart-host--heatmap {
+    height: clamp(480px, 92vw, 620px);
+  }
+}
+
+@media (max-width: 520px) {
+  .table-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

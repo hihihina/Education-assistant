@@ -178,7 +178,7 @@ function renderDistributionChart() {
                 name: band.label,
                 value: band.count,
                 selected: selectedBand.value === band.key,
-                itemStyle: { color: band.level === "good" ? "#2f7df4" : band.level === "bad" ? "#e35d67" : "#8aa9d6" },
+                itemStyle: { color: band.level === "good" ? "#0a2463" : band.level === "bad" ? "#e35d67" : "#94a3b8" },
               })),
             },
           ]
@@ -187,7 +187,7 @@ function renderDistributionChart() {
               type: "bar",
               data: summary.value.bands.map((band) => ({
                 value: band.count,
-                itemStyle: { color: band.level === "good" ? "#2f7df4" : band.level === "bad" ? "#e35d67" : "#8aa9d6" },
+                itemStyle: { color: band.level === "good" ? "#0a2463" : band.level === "bad" ? "#e35d67" : "#94a3b8" },
               })),
               barWidth: "48%",
             },
@@ -225,7 +225,7 @@ function renderBoxplotChart() {
         {
           type: "boxplot",
           data: [[summary.value.quartiles.min, summary.value.quartiles.q1, summary.value.quartiles.median, summary.value.quartiles.q3, summary.value.quartiles.max]],
-          itemStyle: { color: "rgba(47,125,244,0.14)", borderColor: "#2f7df4" },
+          itemStyle: { color: "rgba(10, 36, 99, 0.14)", borderColor: "#0a2463" },
         },
         {
           type: "scatter",
@@ -461,13 +461,13 @@ function clearDistributionFocus() {
 .immersive-back,
 .toggle-btn {
   border: 1px solid var(--line-strong);
-  background: rgba(255, 255, 255, 0.74);
+  background: var(--surface-90);
 }
 
 .immersive-export {
   border: 0;
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .immersive-select {
@@ -482,16 +482,16 @@ function clearDistributionFocus() {
   padding: 12px 14px;
   border-radius: 16px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--surface-92);
 }
 
 .immersive-hero {
   padding: 26px 28px;
   border: 1px solid var(--line);
-  border-radius: 32px;
+  border-radius: 24px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(234, 243, 255, 0.92)),
-    radial-gradient(circle at top left, rgba(143, 215, 255, 0.2), transparent 34%);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94)),
+    radial-gradient(circle at top left, rgba(62, 146, 204, 0.16), transparent 34%);
   box-shadow: var(--shadow-lg);
 }
 
@@ -505,7 +505,7 @@ function clearDistributionFocus() {
   color: var(--copper);
   text-transform: uppercase;
   letter-spacing: 0.24em;
-  font-size: 12px;
+  font-size: var(--font-size-meta);
 }
 
 .immersive-hero h2,
@@ -542,7 +542,7 @@ function clearDistributionFocus() {
 
 .subject-panel {
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-md);
   overflow: hidden;
@@ -567,12 +567,12 @@ function clearDistributionFocus() {
   padding: 9px 12px;
   border: 0;
   border-radius: 999px;
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
   color: var(--ink-soft);
 }
 
 .band-pill--active {
-  background: rgba(47, 125, 244, 0.14);
+  background: rgba(10, 36, 99, 0.14);
   color: var(--copper);
 }
 
@@ -605,19 +605,33 @@ function clearDistributionFocus() {
 .subject-table-wrap th,
 .subject-table-wrap td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(88, 123, 177, 0.12);
+  border-bottom: 1px solid var(--table-line);
   text-align: left;
 }
 
 .subject-table-wrap th {
   position: sticky;
   top: 0;
-  background: rgba(244, 248, 255, 0.96);
+  background: var(--surface-96);
   cursor: pointer;
 }
 
+.immersive-hero,
+.subject-panel,
+.subject-table-wrap {
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+}
+
+.immersive-hero {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-12), transparent 38%),
+    linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+}
+
 .row-focused {
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
 }
 
 .level-pill {
@@ -625,7 +639,7 @@ function clearDistributionFocus() {
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
 }
 
@@ -636,7 +650,7 @@ function clearDistributionFocus() {
 
 .level-pill--mid {
   color: var(--ink-soft);
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
 }
 
 .level-pill--bad {

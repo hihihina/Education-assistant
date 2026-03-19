@@ -88,20 +88,22 @@ const checklist = [
   display: grid;
   gap: 22px;
   align-content: start;
+  min-width: 0;
 }
 
 .analysis-hub__hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 340px);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+  gap: clamp(18px, 2.2vw, 24px);
   align-items: start;
 }
 
 .analysis-hub__copy {
+  min-width: 0;
   padding: clamp(26px, 3vw, 36px);
   border: 1px solid var(--line);
-  border-radius: 32px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(235, 244, 255, 0.9));
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(243, 244, 246, 0.9));
   box-shadow: var(--shadow-md);
 }
 
@@ -111,7 +113,7 @@ const checklist = [
   display: inline-flex;
   margin: 0;
   color: var(--copper);
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -128,6 +130,7 @@ const checklist = [
 .analysis-card small,
 .session-card span {
   color: var(--ink-soft);
+  text-wrap: wrap;
 }
 
 .analysis-hub__lead {
@@ -140,11 +143,15 @@ const checklist = [
   gap: 16px;
 }
 
+.session-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
 .session-card {
   padding: 16px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .session-card strong {
@@ -154,16 +161,17 @@ const checklist = [
 }
 
 .analysis-card-grid {
-  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .analysis-card {
   display: grid;
   gap: 12px;
   align-content: start;
+  min-height: 100%;
   padding: 24px;
   border: 1px solid var(--line);
-  border-radius: 26px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-md);
   transition: 180ms ease;
@@ -184,13 +192,31 @@ const checklist = [
   line-height: 1.65;
 }
 
-@media (max-width: 1100px) {
+.analysis-hub__copy,
+.session-card,
+.analysis-card {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.analysis-card:hover,
+.session-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
+}
+
+@media (max-width: 1240px) {
   .analysis-hub__hero {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 700px) {
   .analysis-card-grid {
     grid-template-columns: 1fr;
   }

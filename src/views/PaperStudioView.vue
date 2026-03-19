@@ -505,7 +505,7 @@ function cloneDefaultSectionConfigs() {
 .paper-item__type,
 .paper-item__score {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -559,11 +559,11 @@ function cloneDefaultSectionConfigs() {
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .text-btn {
@@ -642,7 +642,7 @@ function cloneDefaultSectionConfigs() {
   gap: 10px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .section-card strong,
@@ -660,7 +660,7 @@ function cloneDefaultSectionConfigs() {
 .mix-card {
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .reference-card {
@@ -682,7 +682,7 @@ function cloneDefaultSectionConfigs() {
 .preset-chip {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
   text-align: left;
 }
 
@@ -737,7 +737,7 @@ function cloneDefaultSectionConfigs() {
   min-height: 38px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
   color: var(--copper);
   font-weight: 700;
 }
@@ -778,7 +778,7 @@ function cloneDefaultSectionConfigs() {
 .paper-item__index,
 .paper-item__type,
 .paper-item__score {
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
   color: var(--ink-soft);
 }
 
@@ -788,7 +788,7 @@ function cloneDefaultSectionConfigs() {
 }
 
 .paper-item__difficulty--medium {
-  background: rgba(47, 125, 244, 0.12);
+  background: rgba(10, 36, 99, 0.12);
   color: var(--copper);
 }
 
@@ -813,7 +813,7 @@ function cloneDefaultSectionConfigs() {
 .option-card {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.86);
+  background: rgba(249, 250, 251, 0.86);
 }
 
 .paper-item__detail-stack {
@@ -824,11 +824,40 @@ function cloneDefaultSectionConfigs() {
 .paper-item__detail-box {
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.86);
+  background: rgba(249, 250, 251, 0.86);
 }
 
 .paper-item__detail-box--analysis {
-  background: rgba(235, 244, 255, 0.72);
+  background: rgba(243, 244, 246, 0.72);
+}
+
+.section-card,
+.preset-chip,
+.mix-card,
+.reference-card,
+.section-summary-card,
+.status-card,
+.paper-item,
+.option-card,
+.paper-item__detail-box {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.paper-item__detail-box--analysis {
+  background: linear-gradient(156deg, var(--accent-08), var(--surface-96) 64%);
+}
+
+.section-card:hover,
+.preset-chip:hover,
+.paper-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 .paper-item__detail-box :deep(.rich-content),

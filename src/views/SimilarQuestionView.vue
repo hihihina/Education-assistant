@@ -729,7 +729,7 @@ function goToSetup() {
 .paper-item__type,
 .paper-item__score {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--font-size-meta);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -798,11 +798,11 @@ function goToSetup() {
 
 .page-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .page-btn--ghost {
-  background: rgba(47, 125, 244, 0.08);
+  background: var(--ghost-bg);
 }
 
 .setup-shell {
@@ -831,7 +831,8 @@ function goToSetup() {
 }
 
 .setup-form {
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+  gap: 18px;
   align-items: start;
 }
 
@@ -850,6 +851,28 @@ function goToSetup() {
   width: 100%;
   padding: 14px 16px;
   border-radius: 16px;
+}
+
+.field,
+.summary-card,
+.status-card,
+.mix-card,
+.summary-box {
+  min-width: 0;
+}
+
+.field {
+  padding: 14px;
+  border: 1px solid rgba(10, 36, 99, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.field--preview {
+  position: sticky;
+  top: 14px;
+  align-self: start;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(246, 247, 251, 0.9));
 }
 
 .field-grid,
@@ -879,12 +902,12 @@ function goToSetup() {
 .type-chip {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
 }
 
 .type-chip--active {
-  border-color: rgba(47, 125, 244, 0.26);
-  background: rgba(47, 125, 244, 0.12);
+  border-color: rgba(10, 36, 99, 0.26);
+  background: rgba(10, 36, 99, 0.12);
   color: var(--copper);
 }
 
@@ -906,7 +929,7 @@ function goToSetup() {
   gap: 8px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: rgba(249, 250, 251, 0.92);
   cursor: pointer;
 }
 
@@ -930,8 +953,8 @@ function goToSetup() {
 }
 
 .difficulty-mode-card--active {
-  border-color: rgba(47, 125, 244, 0.22);
-  box-shadow: inset 0 0 0 1px rgba(47, 125, 244, 0.1);
+  border-color: rgba(10, 36, 99, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(10, 36, 99, 0.1);
 }
 
 .difficulty-factor {
@@ -945,11 +968,23 @@ function goToSetup() {
 .summary-box {
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.92);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 247, 251, 0.9));
 }
 
 .summary-card--preprocess {
   background: rgba(239, 247, 255, 0.9);
+}
+
+.setup-actions {
+  justify-content: flex-end;
+}
+
+.setup-actions--full {
+  justify-content: flex-start;
+}
+
+.status-card {
+  border-color: rgba(10, 36, 99, 0.2);
 }
 
 .summary-box--side {
@@ -968,7 +1003,7 @@ function goToSetup() {
   min-height: 38px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
   color: var(--copper);
   font-weight: 700;
 }
@@ -1035,7 +1070,7 @@ function goToSetup() {
 .paper-item__index,
 .paper-item__type,
 .paper-item__score {
-  background: rgba(47, 125, 244, 0.08);
+  background: rgba(10, 36, 99, 0.08);
   color: var(--ink-soft);
 }
 
@@ -1045,7 +1080,7 @@ function goToSetup() {
 }
 
 .paper-item__difficulty--medium {
-  background: rgba(47, 125, 244, 0.12);
+  background: rgba(10, 36, 99, 0.12);
   color: var(--copper);
 }
 
@@ -1070,7 +1105,7 @@ function goToSetup() {
 .option-card {
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.86);
+  background: rgba(249, 250, 251, 0.86);
 }
 
 .paper-item__detail-stack {
@@ -1081,11 +1116,55 @@ function goToSetup() {
 .paper-item__detail-box {
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(248, 251, 255, 0.86);
+  background: rgba(249, 250, 251, 0.86);
 }
 
 .paper-item__detail-box--analysis {
-  background: rgba(235, 244, 255, 0.72);
+  background: rgba(243, 244, 246, 0.72);
+}
+
+.field,
+.type-chip,
+.difficulty-mode-card,
+.summary-card,
+.status-card,
+.mix-card,
+.summary-box,
+.paper-item,
+.option-card,
+.paper-item__detail-box {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--card-border);
+  background: linear-gradient(162deg, var(--surface-98), var(--surface-muted-92) 58%, var(--surface-96));
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.type-chip--active {
+  border-color: var(--primary-26);
+  background: linear-gradient(148deg, var(--primary-12), var(--accent-12));
+  box-shadow: inset 0 0 0 1px var(--primary-10);
+  color: var(--copper);
+}
+
+.difficulty-mode-card--active {
+  border-color: var(--primary-24);
+  box-shadow: inset 0 0 0 1px var(--primary-12), var(--card-shadow);
+}
+
+.summary-card--preprocess,
+.paper-item__detail-box--analysis {
+  background: linear-gradient(156deg, var(--accent-08), var(--surface-96) 64%);
+}
+
+.field:hover,
+.type-chip:hover,
+.difficulty-mode-card:hover,
+.paper-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 .paper-item__detail-box :deep(.rich-content),
@@ -1107,6 +1186,10 @@ function goToSetup() {
   .difficulty-mode-grid,
   .result-summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .field--preview {
+    position: static;
   }
 
   .field-head,

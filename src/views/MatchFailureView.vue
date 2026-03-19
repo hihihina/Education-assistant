@@ -58,6 +58,14 @@ const retryLabel = computed(() => (store.failure?.mode === "gradeOverview" ? "è¿
   border-radius: 18px;
   border: 1px solid rgba(190, 78, 63, 0.16);
   background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--surface-90);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.failure-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(190, 78, 63, 0.24);
+  box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
 }
 
 .failure-item strong {
@@ -83,11 +91,11 @@ const retryLabel = computed(() => (store.failure?.mode === "gradeOverview" ? "è¿
 
 .failure-btn--primary {
   background: linear-gradient(135deg, var(--copper), var(--teal));
-  color: #ffffff;
+  color: var(--paper-strong);
 }
 
 .failure-btn--ghost {
   border: 1px solid var(--line-strong);
-  background: rgba(255, 255, 255, 0.62);
+  background: var(--surface-92);
 }
 </style>
