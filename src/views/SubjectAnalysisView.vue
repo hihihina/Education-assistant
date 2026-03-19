@@ -577,7 +577,7 @@ function clearDistributionFocus() {
 }
 
 .chart-host {
-  height: clamp(280px, 32vw, 360px);
+  height: clamp(300px, 31vh, 500px);
   margin: 18px 14px 18px;
 }
 
@@ -656,6 +656,22 @@ function clearDistributionFocus() {
 .level-pill--bad {
   color: var(--danger);
   background: rgba(190, 78, 63, 0.12);
+}
+
+@media (min-width: 1920px) {
+  .subject-grid,
+  .subject-chart-stack,
+  .metric-grid {
+    gap: 22px;
+  }
+
+  .immersive-hero {
+    padding: clamp(30px, 1.5vw, 40px);
+  }
+
+  .chart-host {
+    height: clamp(360px, 34vh, 580px);
+  }
 }
 
 @media (max-width: 1320px) {

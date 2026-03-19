@@ -548,11 +548,11 @@ function formatRateGap(value) {
 }
 
 .chart-host {
-  height: 320px;
+  height: clamp(300px, 31vh, 460px);
 }
 
 .chart-host--heatmap {
-  height: 620px;
+  height: clamp(520px, 56vh, 860px);
 }
 
 .chart-grid__heatmap {
@@ -680,6 +680,29 @@ th {
   transform: translateY(-2px);
   border-color: var(--card-border-hover);
   box-shadow: var(--card-shadow-hover), inset 0 1px 0 var(--surface-90);
+}
+
+@media (min-width: 1920px) {
+  .analysis-page,
+  .upload-stack,
+  .requirements,
+  .chart-grid,
+  .metric-grid,
+  .table-grid {
+    gap: 22px;
+  }
+
+  .analysis-hero {
+    padding: clamp(30px, 1.6vw, 40px);
+  }
+
+  .chart-host {
+    height: clamp(340px, 33vh, 520px);
+  }
+
+  .chart-host--heatmap {
+    height: clamp(620px, 60vh, 980px);
+  }
 }
 
 @media (max-width: 1320px) {
