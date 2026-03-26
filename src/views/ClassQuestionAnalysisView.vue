@@ -213,10 +213,13 @@ function buildClassInsightSummary(currentDataset) {
       <header class="analysis-hero">
         <div class="analysis-hero__copy">
           <p class="analysis-hero__eyebrow">Class Question Analysis</p>
-          <h2>上传双向细目表与班级小题细分数据，定位班级薄弱题目与知识点</h2>
+          <h2 class="hero-title">
+            上传双向细目表与班级小题细分数据，<br />
+            定位班级的 <span class="highlight">薄弱题目</span> 与 <span class="highlight">薄弱知识点</span>
+          </h2>
           <p>科目名称会优先根据 Excel 文件名自动识别。分析结果将覆盖小题掌握率、知识点掌握率、班级 AI 智能解读与薄弱项清单。</p>
+          <button class="page-btn page-btn--ghost" type="button" @click="goBack" style="margin-top: 24px; align-self: flex-start;">返回成绩分析目录</button>
         </div>
-        <button class="page-btn page-btn--ghost" type="button" @click="goBack">返回成绩分析目录</button>
       </header>
 
       <div class="upload-layout">
@@ -515,6 +518,33 @@ th {
 .pill--bad {
   color: var(--danger);
   background: rgba(190, 78, 63, 0.12);
+}
+
+.hero-title {
+  margin: 14px 0 0;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.35;
+  font-weight: 800;
+  color: var(--copper);
+  letter-spacing: -0.01em;
+}
+
+.hero-title .highlight {
+  color: var(--teal);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title .highlight::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--primary-12);
+  border-radius: 4px;
+  z-index: -1;
 }
 
 .analysis-hero,

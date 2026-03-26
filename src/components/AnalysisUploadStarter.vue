@@ -56,7 +56,7 @@ function handleDrop(event) {
     <header class="analysis-starter__hero">
       <div class="analysis-starter__copy">
         <p class="analysis-starter__eyebrow">{{ eyebrow }}</p>
-        <h2>{{ title }}</h2>
+        <h2 v-html="title"></h2>
         <p>{{ description }}</p>
       </div>
       <div class="analysis-starter__actions">
@@ -122,14 +122,37 @@ function handleDrop(event) {
 }
 
 .analysis-starter h2 {
-  margin: 12px 0 0;
-  font-size: clamp(2rem, 3vw, 3.2rem);
-  line-height: 1.08;
+  margin: 14px 0 0;
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+  line-height: 1.35;
+  font-weight: 800;
+  color: var(--copper);
+  letter-spacing: -0.01em;
+}
+
+:deep(.analysis-starter__highlight) {
+  color: var(--teal);
+  position: relative;
+  display: inline-block;
+}
+
+:deep(.analysis-starter__highlight::after) {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--primary-12);
+  border-radius: 4px;
+  z-index: -1;
 }
 
 .analysis-starter p {
-  margin: 12px 0 0;
+  margin: 16px 0 0;
   color: var(--ink-soft);
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 .analysis-starter__actions {

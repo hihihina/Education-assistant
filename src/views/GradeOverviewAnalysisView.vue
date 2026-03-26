@@ -303,10 +303,13 @@ function formatRateGap(value) {
       <header class="analysis-hero">
         <div class="analysis-hero__copy">
           <p class="analysis-hero__eyebrow">Grade Overview</p>
-          <h2>上传双向细目表和多个班级文件，分析全年级的班级排名与薄弱知识点</h2>
+          <h2 class="hero-title">
+            上传双向细目表和多份班级小题文件，<br />
+            横向对比全年级的 <span class="highlight">班级排名</span> 与 <span class="highlight">薄弱知识点</span>
+          </h2>
           <p>系统会自动按题号对齐多个班级文件，并优先根据 Excel 文件名识别科目名称，最终返回班级排名、知识点热力图、小题差异数据和 AI 智能解读。</p>
+          <button class="page-btn page-btn--ghost" type="button" @click="goBack" style="margin-top: 24px; align-self: flex-start;">返回成绩分析目录</button>
         </div>
-        <button class="page-btn page-btn--ghost" type="button" @click="goBack">返回成绩分析目录</button>
       </header>
 
       <div class="upload-layout">
@@ -678,6 +681,33 @@ th {
   position: sticky;
   top: 0;
   background: var(--surface-96);
+}
+
+.hero-title {
+  margin: 14px 0 0;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.35;
+  font-weight: 800;
+  color: var(--copper);
+  letter-spacing: -0.01em;
+}
+
+.hero-title .highlight {
+  color: var(--teal);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title .highlight::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--primary-12);
+  border-radius: 4px;
+  z-index: -1;
 }
 
 .analysis-hero,

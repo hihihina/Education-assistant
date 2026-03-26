@@ -517,7 +517,7 @@ function cloneDefaultSectionConfigs() {
 
 .page-head h2 {
   margin: 12px 0 0;
-  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-size: clamp(1.5rem, 2.2vw, 2.4rem);
   line-height: 1.12;
 }
 
