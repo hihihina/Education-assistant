@@ -1,6 +1,9 @@
 <script setup>
 import { onBeforeUnmount, onMounted } from "vue";
 import { RouterLink } from "vue-router";
+import { useEduScopeStore } from "../composables/useEduScopeStore";
+
+const store = useEduScopeStore();
 
 const routeCards = [
   {
@@ -66,6 +69,10 @@ const focusPoints = [
 
 let revealObserver = null;
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 onMounted(() => {
   const revealNodes = Array.from(document.querySelectorAll(".reveal-item"));
   revealNodes.forEach((node, index) => {
@@ -108,7 +115,7 @@ onBeforeUnmount(() => {
     <header class="overview-section hero-section reveal-item">
       <div class="hero-content">
         <p class="eyebrow">Education Assistant Overview</p>
-        <h1>面向轻量教育辅助的成绩分析、智能助手、智能出题与智能出卷平台</h1>
+        <h1>面向轻量教育辅助的<br />成绩分析、智能助手、<br />智能出题与智能出卷平台</h1>
         <p class="hero-lead">
           edua 聚焦五类高频任务：基于小题数据做成绩分析、与智能助手连续对话、按年级和学科生成练习题、围绕知识点生成整份试卷，以及围绕原题生成变式训练题。
         </p>
@@ -117,6 +124,7 @@ onBeforeUnmount(() => {
           <RouterLink class="hero-btn hero-btn--primary" to="/analysis">开始成绩分析</RouterLink>
           <RouterLink class="hero-btn hero-btn--ghost" to="/ai">进入 AI 工作区</RouterLink>
         </div>
+        <p v-if="!store.ai.apiKey" class="hero-api-hint">请先进入AI工作区配置API Key</p>
 
         <div class="kpi-grid">
           <article v-for="item in stats" :key="item.label" class="kpi-card">
@@ -145,6 +153,13 @@ onBeforeUnmount(() => {
         <span class="visual-chip visual-chip--two">Question Studio</span>
         <span class="visual-chip visual-chip--three">Paper Composer</span>
       </div>
+
+      <div class="scroll-hint">
+        <span>更多信息</span>
+        <svg viewBox="0 0 24 24" class="scroll-icon">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </svg>
+      </div>
     </header>
 
     <section class="overview-section reveal-item">
@@ -162,6 +177,13 @@ onBeforeUnmount(() => {
           <span class="module-link">打开工作台</span>
         </RouterLink>
       </div>
+
+      <div class="scroll-hint">
+        <span>更多信息</span>
+        <svg viewBox="0 0 24 24" class="scroll-icon">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </svg>
+      </div>
     </section>
 
     <section class="overview-section reveal-item">
@@ -178,6 +200,14 @@ onBeforeUnmount(() => {
         </article>
       </div>
     </section>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部" @click="scrollToTop">
+      <svg viewBox="0 0 24 24" class="back-to-top__icon">
+        <path d="M12 4l-8 8h6v8h4v-8h6z" />
+      </svg>
+      <span class="back-to-top__text">回到顶部</span>
+    </button>
   </section>
 </template>
 
@@ -263,6 +293,12 @@ onBeforeUnmount(() => {
   margin-top: 30px;
 }
 
+.hero-api-hint {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
 .hero-btn {
   display: inline-flex;
   align-items: center;
@@ -293,7 +329,7 @@ onBeforeUnmount(() => {
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-top: 30px;
 }
@@ -369,6 +405,8 @@ onBeforeUnmount(() => {
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 12px;
+  align-self: start;
+  margin-top: 16px;
   background:
     radial-gradient(circle at 0% 0%, var(--accent-12), transparent 44%),
     linear-gradient(180deg, var(--surface-98), var(--surface-muted-92));
@@ -509,6 +547,85 @@ onBeforeUnmount(() => {
 .reveal-item.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: clamp(24px, 4vw, 40px);
+  right: clamp(24px, 4vw, 40px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--primary-22);
+  background: var(--surface-98);
+  color: var(--copper);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 220ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.back-to-top:hover {
+  background: var(--surface-96);
+  border-color: var(--primary-34);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.back-to-top__icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.back-to-top__text {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 260ms ease, opacity 260ms ease, margin-left 260ms ease;
+}
+
+.back-to-top:hover .back-to-top__text {
+  max-width: 100px;
+  opacity: 1;
+  margin-left: 6px;
+}
+
+.scroll-hint {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  animation: float-down 2s ease-in-out infinite;
+}
+
+.scroll-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+@keyframes float-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 @media (max-width: 1360px) {

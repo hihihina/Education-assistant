@@ -88,7 +88,7 @@ function clearApiKey() {
     <header class="page-intro">
       <div>
         <p class="page-intro__eyebrow">edua ai</p>
-        <h2>先完成 edua AI 工作区配置，再切换智能助手、智能出题、智能出卷或题目变式模式</h2>
+        <h2>先完成 edua AI 工作区配置，<br />再切换智能助手、智能出题、智能出卷或题目变式模式</h2>
         <p class="page-intro__lead">
           这里负责 API Key 配置、模式入口和最近调用信息，便于统一管理当前会话中的 AI 能力，也支持成绩分析页中的 AI 智能解读。
         </p>
@@ -103,7 +103,7 @@ function clearApiKey() {
     </header>
 
     <div class="ai-workspace__layout">
-      <SurfacePanel title="API 配置" eyebrow="当前会话">
+      <SurfacePanel title="API 配置" eyebrow="当前会话" class="panel-api">
         <div class="setup-form">
           <label class="field">
             <span>DeepSeek API Key</span>
@@ -128,33 +128,31 @@ function clearApiKey() {
         </div>
       </SurfacePanel>
 
-      <div class="ai-workspace__side">
-        <SurfacePanel title="模式入口" eyebrow="选择模式" compact>
-          <div class="workspace-card-list">
-            <button
-              v-for="workspace in workspaceCards"
-              :key="workspace.to"
-              class="workspace-card"
-              type="button"
-              @click="openWorkspace(workspace.to)"
-            >
-              <span class="workspace-card__tag">{{ workspace.tag }}</span>
-              <strong>{{ workspace.title }}</strong>
-              <p>{{ workspace.description }}</p>
-              <span class="workspace-card__action">进入模式</span>
-            </button>
-          </div>
-        </SurfacePanel>
+      <SurfacePanel title="模式入口" eyebrow="选择模式" compact class="panel-modes">
+        <div class="workspace-card-list">
+          <button
+            v-for="workspace in workspaceCards"
+            :key="workspace.to"
+            class="workspace-card"
+            type="button"
+            @click="openWorkspace(workspace.to)"
+          >
+            <span class="workspace-card__tag">{{ workspace.tag }}</span>
+            <strong>{{ workspace.title }}</strong>
+            <p>{{ workspace.description }}</p>
+            <span class="workspace-card__action">进入模式</span>
+          </button>
+        </div>
+      </SurfacePanel>
 
-        <SurfacePanel title="最近调用" eyebrow="调用统计" compact>
-          <div class="usage-grid">
-            <article v-for="item in usageCards" :key="item.label" class="usage-card">
-              <span>{{ item.label }}</span>
-              <strong>{{ item.value }}</strong>
-            </article>
-          </div>
-        </SurfacePanel>
-      </div>
+      <SurfacePanel title="最近调用" eyebrow="调用统计" compact class="panel-usage">
+        <div class="usage-grid">
+          <article v-for="item in usageCards" :key="item.label" class="usage-card">
+            <span>{{ item.label }}</span>
+            <strong>{{ item.value }}</strong>
+          </article>
+        </div>
+      </SurfacePanel>
     </div>
   </section>
 </template>
@@ -255,14 +253,26 @@ function clearApiKey() {
 }
 
 .ai-workspace__layout {
+  display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.92fr);
+  grid-template-rows: max-content max-content 1fr;
   align-items: start;
+  gap: 20px;
 }
 
-.ai-workspace__side {
-  display: grid;
-  gap: 20px;
-  align-content: start;
+.panel-api {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.panel-usage {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.panel-modes {
+  grid-column: 2;
+  grid-row: 1 / span 3;
 }
 
 .setup-form,
@@ -393,7 +403,12 @@ function clearApiKey() {
   .page-intro,
   .ai-workspace__layout {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
   }
+
+  .panel-api { grid-column: 1; grid-row: 1; }
+  .panel-modes { grid-column: 1; grid-row: 2; }
+  .panel-usage { grid-column: 1; grid-row: 3; }
 
   .page-intro__actions {
     justify-content: flex-start;

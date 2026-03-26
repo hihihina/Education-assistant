@@ -87,6 +87,76 @@
   --ghost-border-hover: var(--primary-28);
 }
 
+html.dark {
+  --primary-rgb: 194, 212, 255;
+  --accent-rgb: 93, 169, 222;
+  --surface-rgb: 30, 34, 45;
+  --surface-muted-rgb: 22, 25, 33;
+  --bg: #12141a;
+  --bg-strong: #0f1014;
+  --paper: rgba(30, 34, 45, 0.94);
+  --paper-strong: #1e222d;
+  --paper-muted: rgba(22, 25, 33, 0.92);
+  --line: rgba(194, 212, 255, 0.14);
+  --line-strong: rgba(93, 169, 222, 0.36);
+  --ink: #e4e8f5;
+  --ink-soft: #9baccc;
+  --teal: #5da9de;
+  --copper: #c2d4ff;
+  --gold: #d4a955;
+  --shadow-lg: 0 16px 34px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.3);
+  --bg-gradient-start: #0f1014;
+  --bg-gradient-end: #12141a;
+  --bg-spot-a: rgba(93, 169, 222, 0.15);
+  --bg-spot-b: rgba(194, 212, 255, 0.1);
+  --primary-04: rgba(var(--primary-rgb), 0.04);
+  --primary-05: rgba(var(--primary-rgb), 0.05);
+  --primary-06: rgba(var(--primary-rgb), 0.06);
+  --primary-08: rgba(var(--primary-rgb), 0.08);
+  --primary-10: rgba(var(--primary-rgb), 0.1);
+  --primary-12: rgba(var(--primary-rgb), 0.12);
+  --primary-14: rgba(var(--primary-rgb), 0.14);
+  --primary-16: rgba(var(--primary-rgb), 0.16);
+  --primary-18: rgba(var(--primary-rgb), 0.18);
+  --primary-20: rgba(var(--primary-rgb), 0.2);
+  --primary-22: rgba(var(--primary-rgb), 0.22);
+  --primary-24: rgba(var(--primary-rgb), 0.24);
+  --primary-26: rgba(var(--primary-rgb), 0.26);
+  --primary-28: rgba(var(--primary-rgb), 0.28);
+  --primary-30: rgba(var(--primary-rgb), 0.3);
+  --primary-34: rgba(var(--primary-rgb), 0.34);
+  --accent-08: rgba(var(--accent-rgb), 0.08);
+  --accent-12: rgba(var(--accent-rgb), 0.12);
+  --accent-16: rgba(var(--accent-rgb), 0.16);
+  --surface-82: rgba(var(--surface-rgb), 0.82);
+  --surface-86: rgba(var(--surface-rgb), 0.86);
+  --surface-90: rgba(var(--surface-rgb), 0.9);
+  --surface-92: rgba(var(--surface-rgb), 0.92);
+  --surface-94: rgba(var(--surface-rgb), 0.94);
+  --surface-96: rgba(var(--surface-rgb), 0.96);
+  --surface-98: rgba(var(--surface-rgb), 0.98);
+  --surface-12: rgba(var(--surface-rgb), 0.12);
+  --surface-14: rgba(var(--surface-rgb), 0.14);
+  --surface-16: rgba(var(--surface-rgb), 0.16);
+  --surface-18: rgba(var(--surface-rgb), 0.18);
+  --surface-26: rgba(var(--surface-rgb), 0.26);
+  --surface-68: rgba(var(--surface-rgb), 0.68);
+  --surface-muted-90: rgba(var(--surface-muted-rgb), 0.9);
+  --surface-muted-92: rgba(var(--surface-muted-rgb), 0.92);
+  --surface-muted-94: rgba(var(--surface-muted-rgb), 0.94);
+  --surface-muted-96: rgba(var(--surface-muted-rgb), 0.96);
+  --card-border: var(--primary-14);
+  --card-border-hover: var(--primary-24);
+  --card-shadow: 0 14px 32px var(--primary-10);
+  --card-shadow-hover: 0 22px 44px var(--primary-14);
+  --card-glow: var(--accent-12);
+  --table-line: rgba(var(--primary-rgb), 0.12);
+  --ghost-bg: var(--primary-08);
+  --ghost-bg-hover: var(--primary-16);
+  --ghost-border-hover: var(--primary-28);
+}
+
 :root[data-theme="coffee"] {
   --primary-rgb: 91, 58, 41;
   --accent-rgb: 155, 123, 99;
@@ -247,6 +317,11 @@ body::before {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.18) 32%, rgba(255, 255, 255, 0.56));
   pointer-events: none;
+}
+
+html.dark body::before {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05) 32%, rgba(0, 0, 0, 0.15));
 }
 
 a {

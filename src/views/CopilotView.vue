@@ -177,8 +177,8 @@ async function parseAttachmentFile(file) {
         </p>
       </div>
       <div class="page-head__actions">
-        <button class="page-btn page-btn--ghost" type="button" @click="goToAiWorkspace">AI 配置</button>
-        <button class="page-btn page-btn--primary" type="button" @click="clearConversation">清空对话</button>
+        <button class="page-btn page-btn--ghost" type="button" @click="clearConversation">清空对话</button>
+        <button class="page-btn page-btn--primary" type="button" @click="goToAiWorkspace">AI 配置</button>
       </div>
     </header>
 
@@ -306,7 +306,7 @@ async function parseAttachmentFile(file) {
 
 .page-head h2 {
   margin: 12px 0 0;
-  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-size: clamp(1.5rem, 2.2vw, 2.4rem);
   line-height: 1.12;
 }
 
@@ -377,7 +377,8 @@ async function parseAttachmentFile(file) {
 }
 
 .chat-feed {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
   min-height: clamp(380px, 56vh, 680px);
   max-height: clamp(420px, 62vh, 760px);
@@ -386,9 +387,11 @@ async function parseAttachmentFile(file) {
 }
 
 .chat-empty {
-  display: grid;
-  place-items: center;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
   padding: 26px;
   text-align: center;
 }
@@ -405,13 +408,13 @@ async function parseAttachmentFile(file) {
 }
 
 .chat-message--assistant {
-  justify-self: start;
+  align-self: flex-start;
   width: min(100%, 1100px);
   max-width: 96%;
 }
 
 .chat-message--user {
-  justify-self: end;
+  align-self: flex-end;
   max-width: min(920px, 88%);
   background: linear-gradient(135deg, var(--copper), var(--teal));
   color: var(--paper-strong);
